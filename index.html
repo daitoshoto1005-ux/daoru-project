@@ -2,139 +2,209 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>daoru</title>
-  <meta name="google-site-verification" content="UWPP5GawWk_WT20iunt1Q7gJ1K3nHYz7aGWE0a0CiOs" />
-<meta name="description" content="最新のDAOを探して参加しよう！仕事・NFT・新規プロジェクトなど、注目コミュニティをまとめたプラットフォーム「daoru」。">
-<meta name="keywords" content="DAO, 仮想通貨, Web3, 参加方法, NFT, 仕事">
-
-  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAORU | DAO Discovery</title>
+<script src="https://unpkg.com/lucide@latest"></script>
 <style>
+:root {
+  --primary: #2ecc71;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+}
+
 body {
-  font-family: Arial;
-  background: #0f172a;
-  color: white;
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+header {
+  background: var(--card);
+  padding: 30px 20px;
   text-align: center;
+  border-bottom: 1px solid #e2e8f0;
 }
 
-.container {
+h1 { margin: 0; font-size: 26px; color: var(--primary); letter-spacing: 1px; }
+.sub { font-size: 12px; color: var(--text-light); }
+
+.section-title {
+  padding: 20px 20px 10px;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-light);
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
-.card {
-  background: #1e293b;
-  padding: 20px;
-  margin: 15px;
-  width: 280px;
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 0 15px 20px;
+}
+
+.cat-card {
+  background: var(--card);
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 15px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cat-card i { color: var(--primary); margin-bottom: 8px; width: 28px; height: 28px; }
+.cat-card .cat-name { font-size: 13px; font-weight: bold; margin-bottom: 2px; }
+.cat-card .cat-eng { font-size: 10px; color: var(--text-light); text-transform: uppercase; }
+
+.cat-card.active {
+  border-color: var(--primary);
+  background: #f0fff4;
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.15);
+}
+
+.container { padding: 0 15px; }
+.item-card {
+  background: var(--card);
   border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+.item-info h3 { margin: 0; font-size: 16px; }
+.item-info p { margin: 4px 0 0; font-size: 13px; color: var(--text-light); }
+.arrow { color: #cbd5e1; font-weight: bold; }
 
-button {
-  margin-top: 10px;
-  padding: 10px;
-  width: 100%;
-  background: #22c55e;
-  border: none;
-  border-radius: 6px;
+.modal {
+  display: none; position: fixed; z-index: 1000;
+  top:0; left:0; width:100%; height:100%;
+  background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(4px);
 }
-
-input, select {
-  margin: 5px;
-  padding: 8px;
-  width: 200px;
+.modal-content {
+  background: var(--card); width: 88%; max-width: 400px;
+  margin: 80px auto; padding: 25px; border-radius: 24px;
 }
+.close-btn { float: right; cursor: pointer; color: var(--text-light); font-size: 20px; }
 </style>
-
 </head>
 <body>
 
-<h1>daoru</h1>
-<p>DAOを探して参加しよう</p>
+<header>
+  <h1>DAORU</h1>
+  <div class="sub">Discover Your DAO Opportunity</div>
+</header>
 
-<h2>DAO掲載する</h2>
+<div class="section-title"><i data-lucide="layout-grid" size="18"></i> 目的別に探す</div>
 
-<input id="name" placeholder="DAO名"><br>
-<input id="desc" placeholder="説明"><br>
-<input id="link" placeholder="Discordリンク"><br>
+<div class="category-grid" id="categoryGrid"></div>
 
-<select id="category">
-  <option value="仕事">仕事</option>
-  <option value="NFT">NFT</option>
-  <option value="新規">新規プロジェクト</option>
-</select><br>
+<div class="section-title" id="listTitle">「作る・働く」のプロジェクト</div>
+<div class="container" id="list"></div>
 
-<button onclick="addDAO()">掲載する</button>
-
-<hr>
-
-<h2>カテゴリで探す</h2>
-
-<button onclick="filterDAO('全部')">全部</button>
-<button onclick="filterDAO('仕事')">仕事</button>
-<button onclick="filterDAO('NFT')">NFT</button>
-<button onclick="filterDAO('新規')">新規</button>
-
-<div class="container" id="daoList"></div>
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div id="detail"></div>
+  </div>
+</div>
 
 <script>
+const categories = [
+  { id: "service", name: "作る・働く", eng: "Service DAO", icon: "briefcase", desc: "実務や事業を共創する型" },
+  { id: "social", name: "つながる", eng: "Social DAO", icon: "users", desc: "交流メインのコミュニティ" },
+  { id: "invest", name: "増やす・投資", eng: "Investment DAO", icon: "trending-up", desc: "共同投資・運用" },
+  { id: "protocol", name: "仕組み・運営", eng: "Protocol DAO", icon: "cpu", desc: "ルールの管理・運営" },
+  { id: "collector", name: "集める", eng: "Collector DAO", icon: "shapes", desc: "NFT等の共同保有" },
+  { id: "grant", name: "支える・応援", eng: "Grants DAO", icon: "heart", desc: "助成・寄付活動" },
+  { id: "media", name: "発信する", eng: "Media DAO", icon: "pen-tool", desc: "分散型メディア" },
+  { id: "venture", name: "育てる", eng: "Venture DAO", icon: "rocket", desc: "スタートアップ支援" }
+];
 
-let daos = JSON.parse(localStorage.getItem("daos")) || [];
-let currentFilter = "全部";
+// サンプルデータ（鯖江のカフェを削除しました）
+let items = [
+  { name: "Crypto Investors JP", desc: "国内最大級の投資コミュニティ", long: "初心者向けの勉強会から最新のDeFi情報の交換まで行っています。\nURL: https://example.com", cat: "invest" },
+  { name: "Web3 Media DAO", desc: "みんなで執筆する分散型メディア", long: "ライター、編集者募集中。記事の貢献度に応じて報酬があります。", cat: "media" }
+];
 
-// DAO追加
-function addDAO() {
-  const name = document.getElementById("name").value;
-  const desc = document.getElementById("desc").value;
-  const link = document.getElementById("link").value;
-  const category = document.getElementById("category").value;
+let currentCat = "service";
 
-  if (!name || !link) {
-    alert("名前とリンクは必須");
+function init() {
+  const grid = document.getElementById('categoryGrid');
+  categories.forEach(cat => {
+    const div = document.createElement('div');
+    div.className = `cat-card ${cat.id === currentCat ? 'active' : ''}`;
+    div.id = `cat-${cat.id}`;
+    div.onclick = () => selectCategory(cat.id);
+    div.innerHTML = `
+      <i data-lucide="${cat.icon}"></i>
+      <div class="cat-name">${cat.name}</div>
+      <div class="cat-eng">${cat.eng}</div>
+    `;
+    grid.appendChild(div);
+  });
+  lucide.createIcons();
+  render();
+}
+
+function selectCategory(id) {
+  currentCat = id;
+  const target = categories.find(c => c.id === id);
+  document.querySelectorAll('.cat-card').forEach(el => el.classList.remove('active'));
+  document.getElementById(`cat-${id}`).classList.add('active');
+  document.getElementById('listTitle').innerText = `「${target.name}」の一覧`;
+  render();
+}
+
+function render() {
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+  const filtered = items.filter(i => i.cat === currentCat);
+  
+  if(filtered.length === 0) {
+    list.innerHTML = "<p style='text-align:center; opacity:0.5; font-size:13px; padding:40px 0;'>まだ案件がありません</p>";
     return;
   }
 
-  daos.push({ name, desc, link, category });
-
-  localStorage.setItem("daos", JSON.stringify(daos));
-
-  render();
-}
-
-// フィルター
-function filterDAO(cat) {
-  currentFilter = cat;
-  render();
-}
-
-// 表示
-function render() {
-  const list = document.getElementById("daoList");
-  list.innerHTML = "";
-
-  let filtered = daos;
-
-  if (currentFilter !== "全部") {
-    filtered = daos.filter(d => d.category === currentFilter);
-  }
-
-  filtered.forEach(dao => {
+  filtered.forEach((item) => {
     list.innerHTML += `
-      <div class="card">
-        <h2>${dao.name}</h2>
-        <p>${dao.desc}</p>
-        <p>カテゴリ: ${dao.category}</p>
-        <button onclick="window.location.href='${dao.link}'">
-          参加する
-        </button>
+      <div class="item-card" onclick="openModal('${item.name}')">
+        <div class="item-info">
+          <h3>${item.name}</h3>
+          <p>${item.desc}</p>
+        </div>
+        <div class="arrow">＞</div>
       </div>
     `;
   });
 }
 
-render();
+function openModal(name) {
+  const item = items.find(i => i.name === name);
+  document.getElementById("detail").innerHTML = `
+    <h2 style="color:var(--primary); margin-top:0;">${item.name}</h2>
+    <p style="font-size:14px; color:var(--text-light); border-bottom:1px solid #eee; padding-bottom:15px;">${item.desc}</p>
+    <p style="font-size:15px; white-space:pre-wrap; margin: 20px 0;">${item.long}</p>
+    <button style="width:100%; padding:14px; background:var(--primary); color:white; border:none; border-radius:12px; font-weight:bold;" onclick="closeModal()">閉じる</button>
+  `;
+  document.getElementById("modal").style.display = "block";
+}
 
+function closeModal() { document.getElementById("modal").style.display = "none"; }
+
+init();
 </script>
-
 </body>
 </html>
