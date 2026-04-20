@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>daoru</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  background: #1e293b;
+  padding: 20px;
+  margin: 15px;
+  width: 280px;
+  border-radius: 12px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  background: #22c55e;
+  border: none;
+  border-radius: 6px;
+}
+
+input, select {
+  margin: 5px;
+  padding: 8px;
+  width: 200px;
+}
+</style>
+
+</head>
+<body>
+
+<h1>daoru</h1>
+<p>DAOを探して参加しよう</p>
+
+<h2>DAO掲載する</h2>
+
+<input id="name" placeholder="DAO名"><br>
+<input id="desc" placeholder="説明"><br>
+<input id="link" placeholder="Discordリンク"><br>
+
+<select id="category">
+  <option value="仕事">仕事</option>
+  <option value="NFT">NFT</option>
+  <option value="新規">新規プロジェクト</option>
+</select><br>
+
+<button onclick="addDAO()">掲載する</button>
+
+<hr>
+
+<h2>カテゴリで探す</h2>
+
+<button onclick="filterDAO('全部')">全部</button>
+<button onclick="filterDAO('仕事')">仕事</button>
+<button onclick="filterDAO('NFT')">NFT</button>
+<button onclick="filterDAO('新規')">新規</button>
+
+<div class="container" id="daoList"></div>
+
+<script>
+
+let daos = JSON.parse(localStorage.getItem("daos")) || [];
+let currentFilter = "全部";
+
+// DAO追加
+function addDAO() {
+  const name = document.getElementById("name").value;
+  const desc = document.getElementById("desc").value;
+  const link = document.getElementById("link").value;
+  const category = document.getElementById("category").value;
+
+  if (!name || !link) {
+    alert("名前とリンクは必須");
+    return;
+  }
+
+  daos.push({ name, desc, link, category });
+
+  localStorage.setItem("daos", JSON.stringify(daos));
+
+  render();
+}
+
+// フィルター
+function filterDAO(cat) {
+  currentFilter = cat;
+  render();
+}
+
+// 表示
+function render() {
+  const list = document.getElementById("daoList");
+  list.innerHTML = "";
+
+  let filtered = daos;
+
+  if (currentFilter !== "全部") {
+    filtered = daos.filter(d => d.category === currentFilter);
+  }
+
+  filtered.forEach(dao => {
+    list.innerHTML += `
+      <div class="card">
+        <h2>${dao.name}</h2>
+        <p>${dao.desc}</p>
+        <p>カテゴリ: ${dao.category}</p>
+        <button onclick="window.location.href='${dao.link}'">
+          参加する
+        </button>
+      </div>
+    `;
+  });
+}
+
+render();
+
+</script>
+
+</body>
+</html>
