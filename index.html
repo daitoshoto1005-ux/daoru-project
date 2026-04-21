@@ -29,7 +29,7 @@ body {
 }
 
 header { padding: 40px 20px; text-align: center; }
-h1 { margin: 0; font-size: 32px; color: var(--primary); letter-spacing: 2px; font-weight: 900; }
+h1 { margin: 0; font-size: 34px; color: var(--primary); letter-spacing: 2px; font-weight: 900; }
 .sub { font-size: 13px; color: var(--text-light); margin-top: 5px; }
 
 .search-container { padding: 0 20px 20px; max-width: 500px; margin: 0 auto; }
@@ -45,7 +45,7 @@ h1 { margin: 0; font-size: 32px; color: var(--primary); letter-spacing: 2px; fon
 .item-card {
   background: var(--card); border-radius: 24px; padding: 24px; margin-bottom: 16px;
   border: 1px solid rgba(226, 232, 240, 0.8); box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-  cursor: pointer; transition: all 0.2s ease; position: relative;
+  cursor: pointer; transition: all 0.2s ease;
 }
 .item-card:active { transform: scale(0.98); }
 
@@ -58,7 +58,7 @@ h1 { margin: 0; font-size: 32px; color: var(--primary); letter-spacing: 2px; fon
 .item-info p { margin: 8px 0 0; font-size: 14px; color: var(--text-light); }
 
 .fixed-footer {
-  position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.9);
+  position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(15px); border-top: 1px solid #e2e8f0; padding: 15px 20px; z-index: 900;
 }
 .line-btn {
@@ -66,17 +66,22 @@ h1 { margin: 0; font-size: 32px; color: var(--primary); letter-spacing: 2px; fon
   height: 54px; border-radius: 27px; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold;
 }
 
-.modal { display: none; position: fixed; z-index: 1000; top:0; left:0; width:100%; height:100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); }
+/* モーダル */
+.modal { display: none; position: fixed; z-index: 1000; top:0; left:0; width:100%; height:100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(8px); }
 .modal-content {
   background: var(--card); width: 90%; max-width: 450px; margin: 40px auto; padding: 30px;
-  border-radius: 30px; position: relative; max-height: 80vh; overflow-y: auto;
+  border-radius: 30px; position: relative; max-height: 85vh; overflow-y: auto; box-sizing: border-box;
 }
 .close-btn { position: absolute; top: 20px; right: 20px; cursor: pointer; color: var(--text-light); font-size: 24px; }
 
-/* リンクボタンのスタイル */
+.modal-long-desc { 
+  background: #f8fafc; padding: 15px; border-radius: 15px; font-size: 14px; 
+  white-space: pre-wrap; margin-bottom: 20px; border: 1px solid #edf2f7; 
+}
+
 .link-btn {
   display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; padding: 14px; border-radius: 14px; font-weight: bold; text-decoration: none; margin-bottom: 10px; font-size: 14px;
+  width: 100%; padding: 16px; border-radius: 16px; font-weight: bold; text-decoration: none; margin-bottom: 12px; font-size: 15px;
 }
 .btn-site { background: var(--primary); color: white; }
 .btn-discord { background: var(--discord-color); color: white; }
@@ -112,26 +117,44 @@ h1 { margin: 0; font-size: 32px; color: var(--primary); letter-spacing: 2px; fon
 </div>
 
 <script>
-// 各DAOのデータ
+// 日本の全DAOデータリスト
 const items = [
-  { id: "ninja", name: "忍者 DAO", desc: "日本最大級！圧倒的な熱量のコミュニティ", tags: ["初心者歓迎", "二次創作", "ゲーム大会"], hot: 1250, discord: "https://discord.com/invite/ninjadao", site: "" },
-  { id: "cryptocafe", name: "クリプトカフェ BAR", desc: "恵比寿にあるWeb3好きの拠点", tags: ["リアル店舗", "交流", "恵比寿"], hot: 420, discord: "", site: "https://cryptocafe.bar/" },
-  { id: "guildqb", name: "GuildQB / GGX", desc: "ゲームで生きていくを形にするDAO", tags: ["Web3ゲーム", "大会主催", "ゲーム制作"], hot: 890, discord: "https://discord.com/invite/guildqb", site: "https://guildqb.com/" },
-  { id: "okaeri", name: "オカエリハブ", desc: "旅と多拠点生活を楽しむ新しい形", tags: ["ゲストハウス", "サブスク", "地方創生"], hot: 310, discord: "", site: "https://www.okaerihub.net/" },
-  { id: "heal3", name: "HEAL3", desc: "健康を遊ぶ、Web3ヘルスケアDAO", tags: ["ジム", "健康", "歩いて稼ぐ"], hot: 560, discord: "", site: "https://heal3.com/" },
-  { id: "jandao", name: "雀DAO", desc: "麻雀でつながるWeb3コミュニティ", tags: ["麻雀", "大会運営", "趣味"], hot: 180, discord: "", site: "https://x.com/jandao_official" },
-  { id: "ngg", name: "NGG (Ninja Game Guild)", desc: "ゲーム制作から毎日プレイまで", tags: ["ゲーム制作", "ボイチャ", "仲間探し"], hot: 720, discord: "https://discord.gg/ngg", site: "" }
+  { id: "ninja", name: "忍者 DAO", desc: "日本最大級！圧倒的な熱量のコミュニティ", tags: ["初心者歓迎", "二次創作", "ゲーム大会"], hot: 1250, 
+    long: "NFTプロジェクト『CryptoNinja』の公式コミュニティ。イラスト、音楽、メタバース、そして頻繁に開催されるゲーム大会など、毎日どこかで何かが起きています！", 
+    discord: "https://discord.com/invite/ninjadao", site: "" },
+  { id: "cryptocafe", name: "クリプトカフェ BAR", desc: "恵比寿にあるWeb3好きの拠点", tags: ["リアル店舗", "交流", "恵比寿"], hot: 420, 
+    long: "東京・恵比寿にある実店舗のカフェ＆バー。Web3好きが集まり、オフラインでのリアルな繋がりが生まれる温かい場所です。初心者さんも大歓迎！", 
+    discord: "", site: "https://cryptocafe.bar/" },
+  { id: "guildqb", name: "GuildQB / GGX", desc: "ゲームで生きていくを形にするDAO", tags: ["Web3ゲーム", "大会主催", "ゲーム制作"], hot: 890, 
+    long: "最新のブロックチェーンゲームの攻略や大会主催、さらにはゲーム制作支援まで行う本格派。プロからアマまでゲームを全力で楽しむ仲間が集まっています。", 
+    discord: "https://discord.com/invite/guildqb", site: "https://guildqb.com/" },
+  { id: "okaeri", name: "オカエリハブ", desc: "旅と多拠点生活を楽しむ新しい形", tags: ["ゲストハウス", "サブスク", "地方創生"], hot: 310, 
+    long: "全国の宿のオーナーたちが共同運営するDAO。月額定額で各地の拠点に滞在でき、行く先々で『ただいま』と言える関係性が作れるプロジェクトです。", 
+    discord: "", site: "https://www.okaerihub.net/" },
+  { id: "heal3", name: "HEAL3", desc: "健康を遊ぶ、Web3ヘルスケアDAO", tags: ["ジム", "健康", "歩いて稼ぐ"], hot: 560, 
+    long: "運動を習慣化するためのコミュニティ。アプリを使って歩いたり走ったりして、仲間と励まし合いながら健康なライフスタイルを目指せます。", 
+    discord: "", site: "https://heal3.com/" },
+  { id: "jandao", name: "雀DAO", desc: "麻雀でつながるWeb3コミュニティ", tags: ["麻雀", "大会運営", "趣味"], hot: 180, 
+    long: "麻雀好きが集まり、オンライン・オフラインで大会を開催。麻雀を通じた新しい経済圏とコミュニティの形を追求している、日本でも珍しいDAOです。", 
+    discord: "", site: "https://x.com/jandao_official" },
+  { id: "ngg", name: "NGG (Ninja Game Guild)", desc: "ゲーム制作から毎日プレイまで", tags: ["ゲーム制作", "毎日プレイ", "仲間探し"], hot: 720, 
+    long: "Ninja DAO派生のゲーム特化ギルド。有志でのゲーム開発や、メジャータイトルの大会、夜な夜な行われるボイチャでのプレイなど、ゲーム三昧な場所です。", 
+    discord: "https://discord.gg/ngg", site: "" },
+  { id: "localrevive", name: "Local Revive DAO", desc: "旅とWeb3で地域を盛り上げる", tags: ["旅", "地方創生", "NFT体験"], hot: 240, 
+    long: "日本各地の魅力を掘り起こし、NFTを活用した新しい観光体験を提供。旅をしながら地域に貢献したい人にぴったりのプロジェクトです。", 
+    discord: "https://discord.gg/C7Tf7n2qGg", site: "https://local-revive.com/" }
 ];
 
-// 注目数を管理する仕組み（ブラウザに保存）
+// 注目数を管理する仕組み（ブラウザ保存）
 function getHotCount(id, baseHot) {
   const saved = localStorage.getItem('hot_' + id);
   return saved ? parseInt(saved) : baseHot;
 }
 
 function incrementHot(id) {
-  const current = getHotCount(id, items.find(i => i.id === id).hot);
-  localStorage.setItem('hot_' + id, current + 1);
+  const current = getHotCount(id, 0);
+  const base = items.find(i => i.id === id).hot;
+  localStorage.setItem('hot_' + id, (current === 0 ? base : current) + 1);
   render();
 }
 
@@ -168,21 +191,23 @@ function render() {
 
 function openModal(id) {
   const item = items.find(i => i.id === id);
-  incrementHot(id); // 開いたら注目度アップ！
+  incrementHot(id);
 
   let linksHtml = "";
-  if(item.site) linksHtml += `<a href="${item.site}" target="_blank" class="link-btn btn-site">🌐 公式サイトを開く</a>`;
-  if(item.discord) linksHtml += `<a href="${item.discord}" target="_blank" class="link-btn btn-discord">💬 Discordに参加（アプリ推奨）</a>`;
+  if(item.site) linksHtml += `<a href="${item.site}" target="_blank" class="link-btn btn-site"><i data-lucide="external-link"></i> 公式サイトを開く</a>`;
+  if(item.discord) linksHtml += `<a href="${item.discord}" target="_blank" class="link-btn btn-discord"><i data-lucide="message-square"></i> Discordに参加する</a>`;
 
   document.getElementById("detail").innerHTML = `
     <h2 style="color:var(--primary); margin:0 0 10px 0;">${item.name}</h2>
-    <p style="font-size:14px; color:var(--text-light); margin-bottom:20px;">${item.desc}</p>
-    <div style="margin-bottom:20px;">${linksHtml}</div>
-    <p style="font-size:12px; color:var(--text-light); background:#f8fafc; padding:10px; border-radius:10px;">
-      ※Discordが読み込めない場合は、スマホのアプリから直接サーバー名を検索するか、リンクをコピーしてブラウザの別タブで開いてみてください。
+    <p style="font-size:14px; color:var(--text-light); margin-bottom:15px; font-weight:bold;">${item.desc}</p>
+    <div class="modal-long-desc">${item.long}</div>
+    <div style="margin-bottom:10px;">${linksHtml}</div>
+    <p style="font-size:11px; color:var(--text-light); text-align:center;">
+      ※Discordが開かない場合は、ブラウザで開き直すか<br>アプリでサーバー名を検索してください。
     </p>
   `;
   document.getElementById("modal").style.display = "block";
+  lucide.createIcons();
 }
 
 function closeModal() { document.getElementById("modal").style.display = "none"; }
