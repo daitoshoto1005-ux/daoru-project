@@ -1,107 +1,328 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>DAORU</title>
-<style>
-:root {
-  --primary: #2ecc71;
-  --bg: #f8fafc;
-  --card: #ffffff;
-  --text: #1e293b;
-  --text-light: #64748b;
-  --hot: #e74c3c;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAORU | 日本最大級のDAO図鑑</title>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --primary: #2ecc71;
+      --primary-bg: #ebfaf0;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --text-light: #64748b;
+      --hot: #e74c3c;
+      --discord: #5865F2;
+      --x: #000000;
+      --line: #06C755;
+    }
 
-body { margin: 0; font-family: sans-serif; background: var(--bg); color: var(--text); padding-bottom: 80px; }
-header { padding: 30px 20px; text-align: center; background: white; border-bottom: 1px solid #eee; }
-h1 { margin: 0; font-size: 28px; color: var(--primary); font-weight: 900; }
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding-bottom: 120px;
+      -webkit-font-smoothing: antialiased;
+    }
 
-.container { padding: 15px; max-width: 500px; margin: 0 auto; }
-.card {
-  background: var(--card); border-radius: 15px; padding: 20px; margin-bottom: 12px;
-  border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-.card-top { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 11px; }
-.hot-tag { color: var(--hot); font-weight: bold; }
-.card-name { font-size: 18px; font-weight: bold; margin: 0 0 5px 0; }
-.card-desc { font-size: 14px; color: var(--text-light); margin-bottom: 15px; }
+    header {
+      background: white;
+      padding: 50px 20px;
+      text-align: center;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    }
 
-/* ボタン類 */
-.btn-group { display: flex; flex-direction: column; gap: 8px; }
-.btn {
-  display: block; width: 100%; padding: 12px; border-radius: 10px;
-  text-align: center; text-decoration: none; font-weight: bold; font-size: 14px;
-}
-.btn-site { background: var(--primary); color: white; }
-.btn-discord { background: #5865F2; color: white; }
-.btn-x { background: #000000; color: white; }
+    h1 { margin: 0; font-size: 36px; color: var(--primary); font-weight: 900; letter-spacing: 4px; }
+    .sub { font-size: 14px; color: var(--text-light); margin-top: 10px; font-weight: 500; }
 
-.footer { position: fixed; bottom: 0; width: 100%; background: white; padding: 15px; border-top: 1px solid #eee; text-align: center; }
-.line-link { background: #06C755; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; }
-</style>
+    .search-container {
+      padding: 30px 20px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box i { position: absolute; left: 20px; color: var(--text-light); }
+
+    .search-box input {
+      width: 100%;
+      padding: 18px 20px 18px 55px;
+      border-radius: 40px;
+      border: 2px solid #e2e8f0;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(46, 204, 113, 0.1);
+    }
+
+    .container {
+      padding: 0 20px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 30px;
+      padding: 30px;
+      margin-bottom: 25px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease;
+    }
+
+    .card:active { transform: scale(0.98); }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      max-width: 70%;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--primary);
+      background: var(--primary-bg);
+      padding: 6px 14px;
+      border-radius: 25px;
+      text-transform: uppercase;
+    }
+
+    .hot-badge {
+      font-size: 12px;
+      color: var(--hot);
+      font-weight: 900;
+      background: #fff5f5;
+      padding: 6px 12px;
+      border-radius: 15px;
+      border: 1px solid #ffc1c1;
+      white-space: nowrap;
+    }
+
+    .card-name { font-size: 26px; font-weight: 900; margin-bottom: 15px; color: #0f172a; }
+    
+    .card-desc {
+      font-size: 15px;
+      color: #475569;
+      line-height: 1.8;
+      margin-bottom: 25px;
+      background: #f8fafc;
+      padding: 20px;
+      border-radius: 20px;
+      border-left: 5px solid var(--primary);
+    }
+
+    .btn-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+
+    .btn-site { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2); }
+    .btn-discord { background: var(--discord); color: white; box-shadow: 0 4px 12px rgba(88, 101, 242, 0.2); }
+    .btn-x { background: var(--x); color: white; }
+
+    .fixed-footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 20px;
+      border-top: 1px solid #e2e8f0;
+      z-index: 1000;
+      box-sizing: border-box;
+    }
+
+    .line-btn {
+      background: var(--line);
+      color: white;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 16px;
+      border-radius: 35px;
+      text-decoration: none;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 8px 20px rgba(6, 199, 85, 0.25);
+    }
+  </style>
 </head>
 <body>
 
 <header>
   <h1>DAORU</h1>
-  <p style="font-size:12px; color:gray; margin:5px 0 0;">日本の注目DAO図鑑</p>
+  <div class="sub">日本のDAOを、もっと身近に。</div>
 </header>
 
-<div class="container" id="list"></div>
+<div class="search-container">
+  <div class="search-box">
+    <i data-lucide="search"></i>
+    <input type="text" id="searchInput" placeholder="DAO名、ハッシュタグ、趣味で検索..." oninput="render()">
+  </div>
+</div>
 
-<div class="footer">
-  <a href="https://line.me/ti/p/O4cPoZHcUk" target="_blank" class="line-link">掲載の相談はLINEまで</a>
+<div class="container" id="daoList"></div>
+
+<div class="fixed-footer">
+  <a href="https://line.me/ti/p/O4cPoZHcUk" target="_blank" class="line-btn">
+    <i data-lucide="message-circle"></i> 新規掲載・修正の依頼（LINE）
+  </a>
 </div>
 
 <script>
-// ここに全データを入れました。説明文も復活させています。
-const daos = [
-  { id: 1, name: "忍者 DAO", desc: "日本最大級のコミュニティ。毎日ゲーム大会や制作が行われています。", hot: 1250, discord: "https://discord.com/invite/ninjadao", site: "", x: "" },
-  { id: 2, name: "クリプトカフェ BAR", desc: "恵比寿にあるWeb3好きが集まるリアルな拠点。初心者歓迎！", hot: 420, discord: "", site: "https://cryptocafe.bar/", x: "" },
-  { id: 3, name: "ギルドキュービー", desc: "ゲーム制作や大会主催を行う、日本トップクラスのギルド。", hot: 890, discord: "https://discord.com/invite/guildqb", site: "https://guildqb.com/", x: "" },
-  { id: 4, name: "オカエリハブ", desc: "旅と地方創生を繋ぐ、サブスク宿のコミュニティ。", hot: 310, discord: "", site: "https://www.okaerihub.net/", x: "" },
-  { id: 5, name: "雀DAO", desc: "麻雀とWeb3を組み合わせた新しい趣味の形。", hot: 180, discord: "", site: "", x: "https://x.com/jandao_official" }
-];
+  // 情報量を大幅に増やしたデータベース
+  const daos = [
+    {
+      id: "ninja",
+      name: "忍者 DAO",
+      tags: ["日本最大級", "NFT", "初心者歓迎", "二次創作", "Web3教育"],
+      desc: "日本で最も有名なNFTプロジェクト『CryptoNinja』の公式コミュニティです。ただのファンクラブではなく、教育、制作、ゲーム、地方創生など、多岐にわたるプロジェクトが同時並行で動いています。Discord内では毎日誰かが活動しており、Web3の最前線を体験したいならまずはここがおすすめです！",
+      hot: 1250,
+      discord: "https://discord.com/invite/ninjadao",
+      site: "",
+      x: "https://x.com/CryptoNinja_NFT"
+    },
+    {
+      id: "cafe",
+      name: "クリプトカフェ BAR",
+      tags: ["リアル拠点", "恵比寿", "交流会", "初心者歓迎", "飲食"],
+      desc: "東京・恵比寿に実店舗を構える、Web3層のためのサードプレイスです。オンラインだけでは味わえない『熱量』をリアルで共有できるのが最大の特徴。DAOメンバーは特別メニューが楽しめたり、イベントを主催したりすることも可能。初心者でもふらっと立ち寄れる温かい空間が魅力です。",
+      hot: 420,
+      discord: "",
+      site: "https://cryptocafe.bar/",
+      x: "https://x.com/CryptoCafeBar"
+    },
+    {
+      id: "guild",
+      name: "GuildQB / GGX",
+      tags: ["GameFi", "eスポーツ", "ガチ勢", "Web3ゲーム", "大会"],
+      desc: "『ゲームを遊んで暮らす』を現実にする、日本屈指のゲームギルドです。最新のブロックチェーンゲームの攻略、独自タイトルの開発、さらには賞金付き大会の運営まで行っています。世界中のゲームプロジェクトと提携しており、最新のインセンティブ情報をいち早くキャッチできるプロ志向のコミュニティです。",
+      hot: 890,
+      discord: "https://discord.com/invite/guildqb",
+      site: "https://guildqb.com/",
+      x: "https://x.com/GuildQB"
+    },
+    {
+      id: "okaeri",
+      name: "オカエリハブ",
+      tags: ["地方創生", "多拠点生活", "旅", "ゲストハウス", "サブスク"],
+      desc: "全国の空き家やゲストハウスを活用し、定額でどこにでも住める・泊まれる仕組みを作っているDAOです。地域住民と旅人を繋ぎ、地方の活性化を目指しています。ただの宿泊サービスではなく、地域課題をみんなで解決していくプロセスを楽しめるのが特徴です。",
+      hot: 310,
+      discord: "",
+      site: "https://www.okaerihub.net/",
+      x: "https://x.com/okaerihub"
+    },
+    {
+      id: "heal3",
+      name: "HEAL3 (ヒールスリー)",
+      tags: ["ヘルスケア", "MoveToEarn", "健康管理", "アプリ", "運動習慣"],
+      desc: "運動不足をゲーム感覚で解決するヘルスケアDAO。歩いたり走ったりすることで報酬が得られるアプリを展開しており、仲間と一緒に健康を目指す『デジタルジム』のような存在。ランキングや励まし合いの機能が充実しており、一人では続かない運動も楽しく続けられます。",
+      hot: 560,
+      discord: "",
+      site: "https://heal3.com/",
+      x: "https://x.com/heal3_official"
+    },
+    {
+      id: "jandao",
+      name: "雀DAO (Jan DAO)",
+      tags: ["麻雀", "趣味DAO", "オンライン対戦", "大会運営", "コミュニティ"],
+      desc: "麻雀を愛する人が集まり、Web3の力でよりエキサイティングな麻雀体験を作ることを目指すDAOです。定期的なオンライン大会の開催や、麻雀牌NFTの展開など、伝統的なゲームに最新技術を掛け合わせた新しい遊び方を提案しています。",
+      hot: 210,
+      discord: "https://discord.gg/jandao",
+      site: "",
+      x: "https://x.com/jandao_official"
+    }
+  ];
 
-function getHot(id, base) {
-  const s = localStorage.getItem('h_' + id);
-  return s ? parseInt(s) : base;
-}
+  function getHotCount(id, base) {
+    const saved = localStorage.getItem('count_' + id);
+    return saved ? parseInt(saved) : base;
+  }
 
-function up(id) {
-  const cur = getHot(id, 0);
-  const base = daos.find(d => d.id === id).hot;
-  localStorage.setItem('h_' + id, (cur === 0 ? base : cur) + 1);
-  draw();
-}
+  function incrementHot(id) {
+    const current = getHotCount(id, 0);
+    const base = daos.find(d => d.id === id).hot;
+    localStorage.setItem('count_' + id, (current === 0 ? base : current) + 1);
+    render();
+  }
 
-function draw() {
-  const container = document.getElementById("list");
-  container.innerHTML = "";
-  
-  daos.forEach(d => {
-    let btns = "";
-    if(d.site) btns += `<a href="${d.site}" target="_blank" class="btn btn-site" onclick="up(${d.id})">🌐 公式サイト</a>`;
-    if(d.discord) btns += `<a href="${d.discord}" target="_blank" class="btn btn-discord" onclick="up(${d.id})">💬 Discordに参加</a>`;
-    if(d.x) btns += `<a href="${d.x}" target="_blank" class="btn btn-x" onclick="up(${d.id})">𝕏 公式X(旧Twitter)</a>`;
+  function render() {
+    const list = document.getElementById("daoList");
+    const search = document.getElementById("searchInput").value.toLowerCase();
+    list.innerHTML = "";
 
-    container.innerHTML += `
-      <div class="card">
-        <div class="card-top">
-          <span>#DAO</span>
-          <span class="hot-tag">🔥 ${getHot(d.id, d.hot)}人が注目</span>
+    const filtered = daos.filter(d => 
+      d.name.toLowerCase().includes(search) || 
+      d.desc.toLowerCase().includes(search) ||
+      d.tags.some(t => t.toLowerCase().includes(search))
+    );
+
+    filtered.forEach(d => {
+      const tagsHtml = d.tags.map(t => `<span class="tag">#${t}</span>`).join("");
+      const displayHot = getHotCount(d.id, d.hot);
+
+      let btns = "";
+      if(d.site) btns += `<a href="${d.site}" target="_blank" class="btn btn-site" onclick="incrementHot('${d.id}')"><i data-lucide="globe"></i> 公式サイトへ</a>`;
+      if(d.discord) btns += `<a href="${d.discord}" target="_blank" class="btn btn-discord" onclick="incrementHot('${d.id}')"><i data-lucide="message-square"></i> Discordに参加</a>`;
+      if(d.x) btns += `<a href="${d.x}" target="_blank" class="btn btn-x" onclick="incrementHot('${d.id}')">𝕏 公式アカウント</a>`;
+
+      list.innerHTML += `
+        <div class="card">
+          <div class="card-header">
+            <div class="tag-container">${tagsHtml}</div>
+            <div class="hot-badge">🔥 ${displayHot}人が注目</div>
+          </div>
+          <div class="card-name">${d.name}</div>
+          <div class="card-desc">${d.desc}</div>
+          <div class="btn-grid">${btns}</div>
         </div>
-        <div class="card-name">${d.name}</div>
-        <div class="card-desc">${d.desc}</div>
-        <div class="btn-group">${btns}</div>
-      </div>
-    `;
-  });
-}
+      `;
+    });
+    lucide.createIcons();
+  }
 
-draw();
+  render();
 </script>
 </body>
 </html>
