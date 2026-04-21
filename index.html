@@ -3,188 +3,263 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DAORU | 日本最大級のDAO図鑑</title>
+  <title>DAORU | 日本最大級のDAOポータル図鑑</title>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     :root {
       --primary: #2ecc71;
-      --primary-bg: #ebfaf0;
+      --primary-dark: #27ae60;
+      --primary-bg: #f0fff4;
       --bg: #f8fafc;
       --card: #ffffff;
-      --text: #1e293b;
-      --text-light: #64748b;
-      --hot: #e74c3c;
+      --text-main: #1e293b;
+      --text-sub: #475569;
+      --hot: #ff4757;
       --discord: #5865F2;
       --x: #000000;
       --line: #06C755;
+      --step-bg: #f1f5f9;
     }
 
     body {
       margin: 0;
-      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
       background: var(--bg);
-      color: var(--text);
-      padding-bottom: 120px;
-      -webkit-font-smoothing: antialiased;
+      color: var(--text-main);
+      padding-bottom: 150px;
+      line-height: 1.8;
     }
 
+    /* ヘッダーデザイン */
     header {
-      background: white;
-      padding: 50px 20px;
+      background: linear-gradient(135deg, #ffffff 0%, #f0fff4 100%);
+      padding: 80px 20px;
       text-align: center;
-      border-bottom: 1px solid #e2e8f0;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+      border-bottom: 3px solid var(--primary);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
 
-    h1 { margin: 0; font-size: 36px; color: var(--primary); font-weight: 900; letter-spacing: 4px; }
-    .sub { font-size: 14px; color: var(--text-light); margin-top: 10px; font-weight: 500; }
+    header h1 {
+      margin: 0;
+      font-size: 50px;
+      color: var(--primary);
+      font-weight: 900;
+      letter-spacing: 10px;
+      text-shadow: 3px 3px 0px rgba(0,0,0,0.05);
+    }
 
-    .search-container {
-      padding: 30px 20px;
-      max-width: 700px;
+    .header-sub {
+      font-size: 18px;
+      color: var(--text-sub);
+      margin-top: 20px;
+      font-weight: 700;
+    }
+
+    /* 検索エリア */
+    .search-section {
+      padding: 50px 20px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
-    .search-box {
+    .search-container {
       position: relative;
       display: flex;
       align-items: center;
     }
 
-    .search-box i { position: absolute; left: 20px; color: var(--text-light); }
+    .search-container i {
+      position: absolute;
+      left: 30px;
+      color: var(--primary);
+    }
 
-    .search-box input {
+    .search-container input {
       width: 100%;
-      padding: 18px 20px 18px 55px;
-      border-radius: 40px;
-      border: 2px solid #e2e8f0;
-      font-size: 16px;
+      padding: 25px 30px 25px 80px;
+      border-radius: 60px;
+      border: 4px solid #e2e8f0;
+      font-size: 20px;
       outline: none;
-      transition: all 0.3s ease;
       background: white;
+      transition: all 0.4s ease;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.05);
     }
 
-    .search-box input:focus {
+    .search-container input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(46, 204, 113, 0.1);
+      transform: scale(1.02);
+      box-shadow: 0 20px 45px rgba(46, 204, 113, 0.2);
     }
 
+    /* メインリスト */
     .container {
       padding: 0 20px;
-      max-width: 700px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
-    .card {
+    .dao-card {
       background: var(--card);
-      border-radius: 30px;
-      padding: 30px;
-      margin-bottom: 25px;
+      border-radius: 50px;
+      padding: 50px;
+      margin-bottom: 50px;
       border: 1px solid #e2e8f0;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-      transition: transform 0.2s ease;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+      position: relative;
     }
 
-    .card:active { transform: scale(0.98); }
-
-    .card-header {
+    .card-meta {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 20px;
+      align-items: center;
+      margin-bottom: 30px;
     }
 
-    .tag-container {
+    .tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      max-width: 70%;
+      gap: 12px;
+      max-width: 80%;
     }
 
     .tag {
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 800;
-      color: var(--primary);
+      color: var(--primary-dark);
       background: var(--primary-bg);
-      padding: 6px 14px;
-      border-radius: 25px;
-      text-transform: uppercase;
+      padding: 8px 20px;
+      border-radius: 40px;
+      border: 1px solid rgba(46, 204, 113, 0.2);
     }
 
     .hot-badge {
-      font-size: 12px;
+      font-size: 16px;
       color: var(--hot);
       font-weight: 900;
       background: #fff5f5;
-      padding: 6px 12px;
-      border-radius: 15px;
-      border: 1px solid #ffc1c1;
-      white-space: nowrap;
+      padding: 12px 25px;
+      border-radius: 25px;
+      border: 2px solid #ffccd2;
     }
 
-    .card-name { font-size: 26px; font-weight: 900; margin-bottom: 15px; color: #0f172a; }
-    
-    .card-desc {
-      font-size: 15px;
-      color: #475569;
-      line-height: 1.8;
+    .dao-name {
+      font-size: 38px;
+      font-weight: 900;
       margin-bottom: 25px;
+      color: #0f172a;
+      border-left: 12px solid var(--primary);
+      padding-left: 20px;
+    }
+
+    .dao-intro {
+      font-size: 18px;
+      color: #334155;
       background: #f8fafc;
+      padding: 35px;
+      border-radius: 35px;
+      margin-bottom: 35px;
+      text-align: justify;
+    }
+
+    /* 参加ステップ */
+    .join-guide {
+      margin-bottom: 40px;
+    }
+
+    .join-guide-title {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--primary-dark);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .step-box {
+      background: var(--step-bg);
       padding: 20px;
       border-radius: 20px;
-      border-left: 5px solid var(--primary);
+      font-size: 14px;
+      position: relative;
     }
 
-    .btn-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .btn {
+    .step-num {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      background: var(--primary);
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      padding: 16px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 15px;
-      transition: all 0.2s;
+      font-weight: 900;
     }
 
-    .btn-site { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2); }
-    .btn-discord { background: var(--discord); color: white; box-shadow: 0 4px 12px rgba(88, 101, 242, 0.2); }
-    .btn-x { background: var(--x); color: white; }
+    /* ボタン類 */
+    .btn-group {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
 
-    .fixed-footer {
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 20px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .action-btn:hover { transform: translateY(-5px); filter: brightness(1.1); }
+
+    .btn-official { background: var(--primary); color: white; box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3); }
+    .btn-discord { background: var(--discord); color: white; box-shadow: 0 10px 20px rgba(88, 101, 242, 0.3); }
+    .btn-x { background: var(--x); color: white; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+    /* 固定フッター */
+    .fixed-nav {
       position: fixed;
       bottom: 0;
       width: 100%;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 20px;
-      border-top: 1px solid #e2e8f0;
-      z-index: 1000;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
+      padding: 30px 20px;
+      border-top: 2px solid #e2e8f0;
+      z-index: 9999;
       box-sizing: border-box;
     }
 
-    .line-btn {
+    .line-cta {
       background: var(--line);
       color: white;
-      width: 100%;
-      max-width: 500px;
+      max-width: 600px;
       margin: 0 auto;
-      padding: 16px;
-      border-radius: 35px;
+      padding: 22px;
+      border-radius: 50px;
       text-decoration: none;
       font-weight: 900;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      box-shadow: 0 8px 20px rgba(6, 199, 85, 0.25);
+      gap: 15px;
+      font-size: 20px;
+      box-shadow: 0 15px 35px rgba(6, 199, 85, 0.4);
     }
   </style>
 </head>
@@ -192,137 +267,164 @@
 
 <header>
   <h1>DAORU</h1>
-  <div class="sub">日本のDAOを、もっと身近に。</div>
+  <div class="header-sub">～ 日本のWeb3・DAOコミュニティ完全攻略図鑑 ～</div>
 </header>
 
-<div class="search-container">
-  <div class="search-box">
-    <i data-lucide="search"></i>
-    <input type="text" id="searchInput" placeholder="DAO名、ハッシュタグ、趣味で検索..." oninput="render()">
+<div class="search-section">
+  <div class="search-container">
+    <i data-lucide="search" size="32"></i>
+    <input type="text" id="searchInput" placeholder="DAO名、ハッシュタグ、趣味、特徴で検索..." oninput="updateUI()">
   </div>
 </div>
 
-<div class="container" id="daoList"></div>
+<div class="container" id="listContent"></div>
 
-<div class="fixed-footer">
-  <a href="https://line.me/ti/p/O4cPoZHcUk" target="_blank" class="line-btn">
-    <i data-lucide="message-circle"></i> 新規掲載・修正の依頼（LINE）
+<div class="fixed-nav">
+  <a href="https://line.me/ti/p/O4cPoZHcUk" target="_blank" class="line-cta">
+    <i data-lucide="message-circle-plus"></i> 新規DAO掲載・修正依頼はこちら（公式LINE）
   </a>
 </div>
 
 <script>
-  // 情報量を大幅に増やしたデータベース
-  const daos = [
+  // 圧倒的な情報量のデータベース（500行越えの核）
+  const database = [
     {
       id: "ninja",
-      name: "忍者 DAO",
-      tags: ["日本最大級", "NFT", "初心者歓迎", "二次創作", "Web3教育"],
-      desc: "日本で最も有名なNFTプロジェクト『CryptoNinja』の公式コミュニティです。ただのファンクラブではなく、教育、制作、ゲーム、地方創生など、多岐にわたるプロジェクトが同時並行で動いています。Discord内では毎日誰かが活動しており、Web3の最前線を体験したいならまずはここがおすすめです！",
+      name: "忍者 DAO (Ninja DAO)",
+      tags: ["#NFT", "#日本最大級", "#CryptoNinja", "#CNP", "#二次創作", "#初心者歓迎", "#メタバース", "#教育", "#クリエイター", "#Web3入門", "#ファンアート", "#毎日活動"],
+      desc: "日本で最も成功しているNFTプロジェクト『CryptoNinja』から派生した巨大コミュニティ。参加者は6万人を超え、誰でも許可なく二次創作ができる独自の文化があります。音楽、アニメ、ゲーム、教育、地方創生など、毎日数え切れないほどのプロジェクトが誕生中。Web3で何かを創りたい、あるいは学びたい初心者が最初に訪れるべき「Web3の聖地」です。",
+      steps: [
+        "Discordに参加し、自己紹介チャンネルで挨拶しよう！",
+        "気になる『部活動』を探して、会話を眺めてみよう。",
+        "二次創作やイベントに参加して、貢献ポイントを貯めよう。"
+      ],
       hot: 1250,
-      discord: "https://discord.com/invite/ninjadao",
-      site: "",
-      x: "https://x.com/CryptoNinja_NFT"
+      links: { site: "", dsc: "https://discord.com/invite/ninjadao", x: "https://x.com/CryptoNinja_NFT" }
     },
     {
       id: "cafe",
       name: "クリプトカフェ BAR",
-      tags: ["リアル拠点", "恵比寿", "交流会", "初心者歓迎", "飲食"],
-      desc: "東京・恵比寿に実店舗を構える、Web3層のためのサードプレイスです。オンラインだけでは味わえない『熱量』をリアルで共有できるのが最大の特徴。DAOメンバーは特別メニューが楽しめたり、イベントを主催したりすることも可能。初心者でもふらっと立ち寄れる温かい空間が魅力です。",
+      tags: ["#恵比寿", "#実店舗", "#交流", "#リアル拠点", "#初心者歓迎", "#オフ会", "#BAR運営", "#Web3交流", "#飲食", "#東京", "#ビットコイン決済", "#サードプレイス"],
+      desc: "東京・恵比寿に実在する、Web3層のためのサードプレイス。オンラインだけの繋がりに不安がある人でも、美味しいコーヒーやお酒を楽しみながらリアルな熱量を感じることができます。DAOメンバーになると、店舗の運営会議に参加できたり、限定の裏メニューを注文できたりと、自分たちの居場所を自分たちで創る体験ができます。初心者でもふらっと立ち寄れる温かさが特徴です。",
+      steps: [
+        "まずは恵比寿の店舗に遊びに行ってみよう！",
+        "店員さんや常連さんに『DAOに興味がある』と伝えよう。",
+        "DAO限定のNFT会員証を手に入れて、運営に参加しよう。"
+      ],
       hot: 420,
-      discord: "",
-      site: "https://cryptocafe.bar/",
-      x: "https://x.com/CryptoCafeBar"
+      links: { site: "https://cryptocafe.bar/", dsc: "", x: "https://x.com/CryptoCafeBar" }
     },
     {
       id: "guild",
       name: "GuildQB / GGX",
-      tags: ["GameFi", "eスポーツ", "ガチ勢", "Web3ゲーム", "大会"],
-      desc: "『ゲームを遊んで暮らす』を現実にする、日本屈指のゲームギルドです。最新のブロックチェーンゲームの攻略、独自タイトルの開発、さらには賞金付き大会の運営まで行っています。世界中のゲームプロジェクトと提携しており、最新のインセンティブ情報をいち早くキャッチできるプロ志向のコミュニティです。",
+      tags: ["#GameFi", "#eスポーツ", "#Web3ゲーム", "#PlayToEarn", "#攻略", "#ゲーマーギルド", "#NFTレンタル", "#大会", "#稼ぐ", "#メタバース", "#ブロックチェーン", "#プロゲーマー"],
+      desc: "『ゲームを遊んで生活する』を形にする、日本屈指のゲームギルド。世界中のWeb3ゲームを攻略し、NFTを持っていない初心者でも『スカラーシップ制度』で初期費用ゼロから稼ぎ始めることができます。独自のメタバース開発や、高額賞金のeスポーツ大会主催など、日本のゲーム経済圏を世界レベルへと引き上げる活動を展開しています。",
+      steps: [
+        "Discordに参加して、攻略中のゲーム情報をチェック！",
+        "スカラーシップ（NFT貸出）に応募してゲームを始めよう。",
+        "チーム戦や大会に参加して、ギルド内での信頼を築こう。"
+      ],
       hot: 890,
-      discord: "https://discord.com/invite/guildqb",
-      site: "https://guildqb.com/",
-      x: "https://x.com/GuildQB"
+      links: { site: "https://guildqb.com/", dsc: "https://discord.com/invite/guildqb", x: "https://x.com/GuildQB" }
     },
     {
       id: "okaeri",
-      name: "オカエリハブ",
-      tags: ["地方創生", "多拠点生活", "旅", "ゲストハウス", "サブスク"],
-      desc: "全国の空き家やゲストハウスを活用し、定額でどこにでも住める・泊まれる仕組みを作っているDAOです。地域住民と旅人を繋ぎ、地方の活性化を目指しています。ただの宿泊サービスではなく、地域課題をみんなで解決していくプロセスを楽しめるのが特徴です。",
+      name: "オカエリハブ (OKAERI HUB)",
+      tags: ["#地方創生", "#多拠点生活", "#旅DAO", "#ゲストハウス", "#空き家再生", "#サブスク", "#地域貢献", "#宿", "#関係人口", "#日本一周", "#ワーケーション", "#ふるさと納税"],
+      desc: "全国の空き家やゲストハウスをDAOの力で再生し、定額で全国どこにでも住める仕組みを構築しています。単なる宿泊サービスではなく、地域の宿オーナーや住民と深い絆を築き、地方の課題をみんなで解決していくのが特徴。旅をしながら『自分たちの第二の故郷』を増やしたい人に最適なコミュニティです。",
+      steps: [
+        "公式サイトからサブスクプランをチェック！",
+        "提携している全国のゲストハウスに泊まってみよう。",
+        "地域のイベントや空き家DIYプロジェクトに参加しよう。"
+      ],
       hot: 310,
-      discord: "",
-      site: "https://www.okaerihub.net/",
-      x: "https://x.com/okaerihub"
+      links: { site: "https://www.okaerihub.net/", dsc: "", x: "https://x.com/okaerihub" }
     },
     {
       id: "heal3",
       name: "HEAL3 (ヒールスリー)",
-      tags: ["ヘルスケア", "MoveToEarn", "健康管理", "アプリ", "運動習慣"],
-      desc: "運動不足をゲーム感覚で解決するヘルスケアDAO。歩いたり走ったりすることで報酬が得られるアプリを展開しており、仲間と一緒に健康を目指す『デジタルジム』のような存在。ランキングや励まし合いの機能が充実しており、一人では続かない運動も楽しく続けられます。",
+      tags: ["#MoveToEarn", "#ヘルスケア", "#健康管理", "#アプリ", "#ウォーキング", "#ジム", "#習慣化", "#QOL", "#運動", "#睡眠", "#仲間作り", "#ダイエット"],
+      desc: "『健康を資産にする』を目的としたヘルスケアDAO。専用アプリで歩いたり走ったりすることで、健康状態を向上させながら仲間と励まし合えるデジタルジムのような場所です。一人では続かない運動も、DAOの仲間と一緒にランキングを競ったり、達成感を共有することで、楽しく継続できる仕組みが整っています。",
+      steps: [
+        "HEAL3アプリをインストールしてアカウント作成！",
+        "毎日歩いて、ヘルスケアデータをアプリに記録しよう。",
+        "アプリ内のコミュニティで仲間を見つけて励まし合おう。"
+      ],
       hot: 560,
-      discord: "",
-      site: "https://heal3.com/",
-      x: "https://x.com/heal3_official"
+      links: { site: "https://heal3.com/", dsc: "", x: "https://x.com/heal3_official" }
     },
     {
       id: "jandao",
       name: "雀DAO (Jan DAO)",
-      tags: ["麻雀", "趣味DAO", "オンライン対戦", "大会運営", "コミュニティ"],
-      desc: "麻雀を愛する人が集まり、Web3の力でよりエキサイティングな麻雀体験を作ることを目指すDAOです。定期的なオンライン大会の開催や、麻雀牌NFTの展開など、伝統的なゲームに最新技術を掛け合わせた新しい遊び方を提案しています。",
-      hot: 210,
-      discord: "https://discord.gg/jandao",
-      site: "",
-      x: "https://x.com/jandao_official"
+      tags: ["#麻雀", "#趣味DAO", "#対戦会", "#麻雀NFT", "#大会運営", "#エンタメ", "#コミュニティ", "#eスポーツ", "#雀魂", "#MJ", "#交流会", "#リアル大会"],
+      desc: "麻雀を愛するすべての人へ贈る、Web3時代の麻雀コミュニティ。オンライン対戦の企画はもちろん、独自の麻雀牌NFTの展開や、リアルな雀荘とのコラボなど、麻雀を軸にした新しい経済圏と遊び方を追求しています。初心者からプロ志向まで、麻雀好きなら誰でも熱狂できる場所です。",
+      steps: [
+        "Discordに参加して、定期開催のオンライン大会に申し込もう！",
+        "DAOメンバー限定の対戦ロビーに入って仲間と打とう。",
+        "麻雀牌NFTを手に入れて、DAOの運営企画に提案しよう。"
+      ],
+      hot: 280,
+      links: { site: "", dsc: "https://discord.gg/jandao", x: "https://x.com/jandao_official" }
     }
   ];
 
-  function getHotCount(id, base) {
-    const saved = localStorage.getItem('count_' + id);
-    return saved ? parseInt(saved) : base;
+  function getCount(id, base) {
+    const s = localStorage.getItem('v2_' + id);
+    return s ? parseInt(s) : base;
   }
 
-  function incrementHot(id) {
-    const current = getHotCount(id, 0);
-    const base = daos.find(d => d.id === id).hot;
-    localStorage.setItem('count_' + id, (current === 0 ? base : current) + 1);
-    render();
+  function upCount(id) {
+    const cur = getCount(id, 0);
+    const base = database.find(d => d.id === id).hot;
+    localStorage.setItem('v2_' + id, (cur === 0 ? base : cur) + 1);
+    updateUI();
   }
 
-  function render() {
-    const list = document.getElementById("daoList");
-    const search = document.getElementById("searchInput").value.toLowerCase();
+  function updateUI() {
+    const list = document.getElementById("listContent");
+    const q = document.getElementById("searchInput").value.toLowerCase();
     list.innerHTML = "";
 
-    const filtered = daos.filter(d => 
-      d.name.toLowerCase().includes(search) || 
-      d.desc.toLowerCase().includes(search) ||
-      d.tags.some(t => t.toLowerCase().includes(search))
+    const filtered = database.filter(d => 
+      d.name.toLowerCase().includes(q) || 
+      d.desc.toLowerCase().includes(q) ||
+      d.tags.some(t => t.toLowerCase().includes(q))
     );
 
     filtered.forEach(d => {
-      const tagsHtml = d.tags.map(t => `<span class="tag">#${t}</span>`).join("");
-      const displayHot = getHotCount(d.id, d.hot);
+      const tagHtml = d.tags.map(t => `<span class="tag">${t}</span>`).join("");
+      const stepHtml = d.steps.map((s, i) => `
+        <div class="step-box">
+          <div class="step-num">${i + 1}</div>
+          ${s}
+        </div>
+      `).join("");
 
       let btns = "";
-      if(d.site) btns += `<a href="${d.site}" target="_blank" class="btn btn-site" onclick="incrementHot('${d.id}')"><i data-lucide="globe"></i> 公式サイトへ</a>`;
-      if(d.discord) btns += `<a href="${d.discord}" target="_blank" class="btn btn-discord" onclick="incrementHot('${d.id}')"><i data-lucide="message-square"></i> Discordに参加</a>`;
-      if(d.x) btns += `<a href="${d.x}" target="_blank" class="btn btn-x" onclick="incrementHot('${d.id}')">𝕏 公式アカウント</a>`;
+      if(d.links.site) btns += `<a href="${d.links.site}" target="_blank" class="action-btn btn-official" onclick="upCount('${d.id}')"><i data-lucide="globe"></i> 公式サイトを開く</a>`;
+      if(d.links.dsc) btns += `<a href="${d.links.dsc}" target="_blank" class="action-btn btn-discord" onclick="upCount('${d.id}')"><i data-lucide="message-square"></i> Discordに参加する</a>`;
+      if(d.links.x) btns += `<a href="${d.links.x}" target="_blank" class="action-btn btn-x" onclick="upCount('${d.id}')">𝕏 公式情報をチェック</a>`;
 
       list.innerHTML += `
-        <div class="card">
-          <div class="card-header">
-            <div class="tag-container">${tagsHtml}</div>
-            <div class="hot-badge">🔥 ${displayHot}人が注目</div>
+        <div class="dao-card">
+          <div class="card-meta">
+            <div class="tags">${tagHtml}</div>
+            <div class="hot-badge">🔥 ${getCount(d.id, d.hot)} 注目</div>
           </div>
-          <div class="card-name">${d.name}</div>
-          <div class="card-desc">${d.desc}</div>
-          <div class="btn-grid">${btns}</div>
+          <div class="dao-name">${d.name}</div>
+          <div class="dao-intro">${d.desc}</div>
+          <div class="join-guide">
+            <div class="join-guide-title"><i data-lucide="check-circle"></i> 参加への3ステップ</div>
+            <div class="steps">${stepHtml}</div>
+          </div>
+          <div class="btn-group">${btns}</div>
         </div>
       `;
     });
     lucide.createIcons();
   }
 
-  render();
+  updateUI();
 </script>
 </body>
 </html>
