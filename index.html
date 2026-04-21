@@ -14,6 +14,7 @@
   --card: #ffffff;
   --text: #1e293b;
   --text-light: #64748b;
+  --hot-color: #e74c3c;
 }
 
 body {
@@ -26,156 +27,57 @@ body {
   min-height: 100vh;
 }
 
-header {
-  padding: 40px 20px;
-  text-align: center;
-}
-
-h1 { 
-  margin: 0; 
-  font-size: 32px; 
-  color: var(--primary); 
-  letter-spacing: 2px;
-  font-weight: 900;
-}
+header { padding: 40px 20px; text-align: center; }
+h1 { margin: 0; font-size: 32px; color: var(--primary); letter-spacing: 2px; font-weight: 900; }
 .sub { font-size: 13px; color: var(--text-light); margin-top: 5px; }
 
-/* 検索エリア */
-.search-container {
-  padding: 0 20px 20px;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.search-box {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.search-box i {
-  position: absolute;
-  left: 15px;
-  color: var(--text-light);
-}
-
+.search-container { padding: 0 20px 20px; max-width: 500px; margin: 0 auto; }
+.search-box { position: relative; display: flex; align-items: center; }
+.search-box i { position: absolute; left: 15px; color: var(--text-light); }
 .search-box input {
-  width: 100%;
-  padding: 15px 15px 15px 45px;
-  border-radius: 30px;
-  border: 1px solid #e2e8f0;
-  background: var(--card);
-  font-size: 16px;
-  outline: none;
-  transition: all 0.3s ease;
+  width: 100%; padding: 15px 15px 15px 45px; border-radius: 30px; border: 1px solid #e2e8f0;
+  background: var(--card); font-size: 16px; outline: none; transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0,0,0,0.02);
 }
+.search-box input:focus { border-color: var(--primary); box-shadow: 0 4px 12px rgba(46, 204, 113, 0.15); }
 
-.search-box input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.15);
-}
-
-/* リストエリア */
-.section-header {
-  padding: 10px 20px;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
+.section-header { padding: 10px 20px; max-width: 600px; margin: 0 auto; }
 .results-count { font-size: 13px; color: var(--text-light); font-weight: bold; }
 
-.container { 
-  padding: 0 15px; 
-  max-width: 600px;
-  margin: 0 auto;
-}
-
+.container { padding: 0 15px; max-width: 600px; margin: 0 auto; }
 .item-card {
-  background: var(--card);
-  border-radius: 24px;
-  padding: 24px;
-  margin-bottom: 16px;
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-  cursor: pointer;
-  transition: all 0.2s ease;
+  background: var(--card); border-radius: 24px; padding: 24px; margin-bottom: 16px;
+  border: 1px solid rgba(226, 232, 240, 0.8); box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  cursor: pointer; transition: all 0.2s ease; position: relative;
 }
-
 .item-card:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-.item-card:active { transform: scale(0.98); }
 
-.card-tags {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-
-.tag {
-  font-size: 11px;
-  font-weight: bold;
-  color: var(--primary);
-  background: var(--primary-light);
-  padding: 4px 12px;
-  border-radius: 20px;
-}
+.card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+.card-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag { font-size: 11px; font-weight: bold; color: var(--primary); background: var(--primary-light); padding: 4px 12px; border-radius: 20px; }
+.hot-badge { font-size: 10px; color: var(--hot-color); font-weight: bold; background: #fff5f5; padding: 2px 8px; border-radius: 10px; border: 1px solid #ffc1c1; white-space: nowrap; }
 
 .item-info h3 { margin: 0; font-size: 20px; font-weight: 800; }
 .item-info p { margin: 8px 0 0; font-size: 14px; color: var(--text-light); }
 
-/* LINE 固定バー */
 .fixed-footer {
-  position: fixed;
-  bottom: 0; left: 0; width: 100%;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(15px);
-  border-top: 1px solid rgba(226, 232, 240, 0.5);
-  padding: 15px 20px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  z-index: 900;
+  position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(15px); border-top: 1px solid rgba(226, 232, 240, 0.5);
+  padding: 15px 20px; box-sizing: border-box; display: flex; justify-content: center; z-index: 900;
 }
-
 .line-btn {
-  background: var(--line-color);
-  color: white;
-  text-decoration: none;
-  width: 100%;
-  max-width: 400px;
-  height: 54px;
-  border-radius: 27px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-weight: bold;
-  box-shadow: 0 10px 20px rgba(6, 199, 85, 0.2);
+  background: var(--line-color); color: white; text-decoration: none; width: 100%; max-width: 400px;
+  height: 54px; border-radius: 27px; display: flex; align-items: center; justify-content: center;
+  gap: 10px; font-weight: bold; box-shadow: 0 10px 20px rgba(6, 199, 85, 0.2);
 }
 
-/* モーダル */
-.modal {
-  display: none; position: fixed; z-index: 1000;
-  top:0; left:0; width:100%; height:100%;
-  background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px);
-}
+.modal { display: none; position: fixed; z-index: 1000; top:0; left:0; width:100%; height:100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); }
 .modal-content {
-  background: var(--card); width: 90%; max-width: 450px;
-  margin: 60px auto; padding: 30px; border-radius: 30px;
-  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-  position: relative;
+  background: var(--card); width: 90%; max-width: 450px; margin: 60px auto; padding: 30px;
+  border-radius: 30px; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
 }
-.close-btn { 
-  position: absolute; top: 20px; right: 20px;
-  cursor: pointer; color: var(--text-light); font-size: 24px; 
-}
-.modal-url {
-  word-break: break-all;
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: bold;
-}
+.close-btn { position: absolute; top: 20px; right: 20px; cursor: pointer; color: var(--text-light); font-size: 24px; }
+.modal-url { word-break: break-all; color: var(--primary); text-decoration: none; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -200,8 +102,7 @@ h1 {
 
 <div class="fixed-footer">
   <a href="https://line.me/ti/p/O4cPoZHcUk" target="_blank" class="line-btn">
-    <i data-lucide="message-circle"></i>
-    掲載したい人はこちら（LINE）
+    <i data-lucide="message-circle"></i> 掲載したい人はこちら（LINE）
   </a>
 </div>
 
@@ -218,32 +119,61 @@ const items = [
     name: "忍者 DAO", 
     desc: "日本最大級！圧倒的な熱量のコミュニティ", 
     tags: ["初心者歓迎", "二次創作", "ゲーム大会", "毎日がお祭り"],
-    long: "NFTプロジェクト『CryptoNinja』の公式コミュニティ。誰でも参加でき、イラスト、音楽、メタバース、ゲームなど、数えきれないほどのプロジェクトが同時進行中！Web3の楽しさを知るならまずはここ！\n\nDiscord: https://discord.com/invite/ninjadao"
+    hot: 1250,
+    long: "NFTプロジェクト『CryptoNinja』の公式コミュニティ。イラスト、音楽、メタバース、そして頻繁に開催されるゲーム大会など、毎日どこかで何かが起きています！\n\nDiscord: https://discord.com/invite/ninjadao"
   },
   { 
     name: "クリプトカフェ BAR", 
-    desc: "恵比寿にあるWeb3好きの秘密基地", 
+    desc: "恵比寿にあるWeb3好きの拠点", 
     tags: ["リアル店舗", "交流", "恵比寿", "ドリンク片手に"],
-    long: "東京・恵比寿に実在する、Web3やクリプト好きが集まるカフェ＆バー。NFTを会員証のように使ったり、オフラインでのリアルな繋がりが生まれる場所です。初心者さんも大歓迎！\n\nURL: https://cryptocafe.bar/"
+    hot: 420,
+    long: "東京・恵比寿にある実店舗のカフェ＆バー。Web3好きが集まり、オフラインでのイベントも活発。初心者でもふらっと立ち寄れる温かい場所です。\n\n公式サイト: https://cryptocafe.bar/"
   },
   { 
-    name: "ギルドキュービー (GuildQB)", 
+    name: "ギルドキュービー (GuildQB / GGX)", 
     desc: "ゲームで生きていくを形にするDAO", 
-    tags: ["Web3ゲーム", "大会主催", "賞金あり", "攻略"],
-    long: "最新のブロックチェーンゲームの攻略や、大会主催を行うゲームDAO。プロからアマチュアまで、ゲームを全力で楽しみ、新しい経済圏を作る仲間が集まっています。\n\nDiscord: https://discord.com/invite/guildqb\n公式サイト: https://guildqb.com/"
+    tags: ["Web3ゲーム", "大会主催", "賞金あり", "ゲーム制作"],
+    hot: 890,
+    long: "最新のブロックチェーンゲームの攻略や大会主催、さらにはゲーム制作支援まで行う本格派。プロからアマまでゲームを全力で楽しむ仲間が集まっています。\n\nDiscord: https://discord.com/invite/guildqb\n公式サイト: https://guildqb.com/"
   },
   { 
     name: "オカエリハブ", 
     desc: "旅と多拠点生活を楽しむ新しい形", 
     tags: ["ゲストハウス", "サブスク", "多拠点居住", "地方創生"],
-    long: "全国の宿のオーナーたちが協力して運営するDAO。月額定額で各地の拠点に滞在でき、行く先々で『ただいま』と言える温かい関係性が作れるプロジェクトです。\n\nURL: https://www.okaerihub.net/"
+    hot: 310,
+    long: "全国の宿のオーナーたちが共同運営するDAO。月額定額で各地の拠点に滞在でき、行く先々で『ただいま』と言える温かい関係性が作れるプロジェクトです。\n\n公式サイト: https://www.okaerihub.net/"
+  },
+  { 
+    name: "HEAL3 (ヒールスリー)", 
+    desc: "健康を遊ぶ、Web3ヘルスケアDAO", 
+    tags: ["ジム", "健康", "歩いて稼ぐ", "アプリ"],
+    hot: 560,
+    long: "運動を習慣化するためのコミュニティ。アプリを使って歩いたり走ったりして、仲間と励まし合いながら健康なライフスタイルを目指せます。\n\n公式サイト: https://heal3.com/"
+  },
+  { 
+    name: "雀DAO (Jan DAO)", 
+    desc: "麻雀でつながるWeb3コミュニティ", 
+    tags: ["麻雀", "大会運営", "交流", "趣味"],
+    hot: 180,
+    long: "麻雀好きが集まり、オンライン・オフラインで大会を開催。麻雀を通じた新しい経済圏とコミュニティの形を追求している、日本でも珍しいDAOです。\n\n公式X: https://x.com/jandao_official"
+  },
+  { 
+    name: "NGG (Ninja Game Guild)", 
+    desc: "ゲーム制作から毎日プレイまで", 
+    tags: ["ゲーム制作", "毎日プレイ", "ボイチャ", "仲間探し"],
+    hot: 720,
+    long: "Ninja DAO派生のゲーム特化ギルド。有志でのゲーム開発や、メジャータイトルの大会、夜な夜な行われるボイチャでのプレイなど、ゲーム三昧な場所です。\n\nDiscord: https://discord.gg/ngg"
+  },
+  { 
+    name: "Local Revive DAO", 
+    desc: "旅とWeb3で地域を盛り上げる", 
+    tags: ["旅", "地方創生", "NFT体験", "地域連携"],
+    hot: 240,
+    long: "日本各地の魅力を掘り起こし、NFTを活用した新しい観光体験を提供。旅をしながら地域に貢献したい人にぴったりのプロジェクトです。\n\n公式サイト: https://local-revive.com/\nDiscord: https://discord.gg/C7Tf7n2qGg"
   }
 ];
 
-function init() {
-  lucide.createIcons();
-  render();
-}
+function init() { lucide.createIcons(); render(); }
 
 function render() {
   const list = document.getElementById("list");
@@ -258,16 +188,16 @@ function render() {
 
   document.getElementById("countText").innerText = `${filtered.length} 件のプロジェクト`;
 
-  if(filtered.length === 0) {
-    list.innerHTML = "<p style='text-align:center; opacity:0.5; padding:40px 0;'>見つかりませんでした。別の言葉で試してみてください。</p>";
-    return;
-  }
-
   filtered.forEach((item) => {
     const tagsHtml = item.tags.map(t => `<span class="tag">#${t}</span>`).join("");
+    const hotDisplay = item.hot + Math.floor(Math.random() * 15);
+
     list.innerHTML += `
       <div class="item-card" onclick="openModal('${item.name}')">
-        <div class="card-tags">${tagsHtml}</div>
+        <div class="card-top">
+          <div class="card-tags">${tagsHtml}</div>
+          <div class="hot-badge">🔥 ${hotDisplay}人が注目</div>
+        </div>
         <div class="item-info">
           <h3>${item.name}</h3>
           <p>${item.desc}</p>
@@ -280,8 +210,6 @@ function render() {
 function openModal(name) {
   const item = items.find(i => i.name === name);
   const tagsHtml = item.tags.map(t => `<span class="tag">#${t}</span>`).join("");
-  
-  // URL部分をリンクとして表示するための簡単な処理
   const formattedLong = item.long.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" class="modal-url">$1</a>');
 
   document.getElementById("detail").innerHTML = `
@@ -295,7 +223,6 @@ function openModal(name) {
 }
 
 function closeModal() { document.getElementById("modal").style.display = "none"; }
-
 init();
 </script>
 </body>
