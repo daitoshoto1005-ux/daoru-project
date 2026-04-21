@@ -3,254 +3,323 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DAORU | 日本最大級のDAOポータル図鑑</title>
+  <title>DAORU | 日本最大級のDAO完全図鑑 - 稼ぎ方・参加方法を網羅</title>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
+    /* ========================================
+    CSS: 圧倒的なデザイン品質と余白の確保
+    ========================================
+    */
     :root {
       --primary: #2ecc71;
       --primary-dark: #27ae60;
-      --primary-bg: #f0fff4;
-      --bg: #f8fafc;
+      --bg: #f0f4f8;
       --card: #ffffff;
-      --text-main: #1e293b;
-      --text-sub: #475569;
-      --hot: #ff4757;
+      --text: #1e293b;
+      --text-sub: #64748b;
+      --accent: #3b82f6;
       --discord: #5865F2;
-      --x: #000000;
       --line: #06C755;
-      --step-bg: #f1f5f9;
+      --shadow: 0 10px 25px rgba(0,0,0,0.05);
     }
 
     body {
       margin: 0;
-      font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+      padding: 0;
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
       background: var(--bg);
-      color: var(--text-main);
-      padding-bottom: 150px;
+      color: var(--text);
       line-height: 1.8;
+      overflow-x: hidden;
     }
 
-    /* ヘッダーデザイン */
     header {
-      background: linear-gradient(135deg, #ffffff 0%, #f0fff4 100%);
-      padding: 80px 20px;
+      background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+      padding: 60px 20px;
       text-align: center;
-      border-bottom: 3px solid var(--primary);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      border-bottom: 2px solid #e2e8f0;
+      position: relative;
     }
 
     header h1 {
       margin: 0;
-      font-size: 50px;
+      font-size: 48px;
       color: var(--primary);
       font-weight: 900;
-      letter-spacing: 10px;
-      text-shadow: 3px 3px 0px rgba(0,0,0,0.05);
+      letter-spacing: 8px;
+      text-transform: uppercase;
     }
 
     .header-sub {
       font-size: 18px;
       color: var(--text-sub);
-      margin-top: 20px;
-      font-weight: 700;
+      margin-top: 15px;
+      font-weight: bold;
+      letter-spacing: 1px;
     }
 
-    /* 検索エリア */
-    .search-section {
-      padding: 50px 20px;
-      max-width: 900px;
-      margin: 0 auto;
+    /* ========================================
+    STRATEGY SECTION: 勝ち方セクション
+    ========================================
+    */
+    .strategy-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #1e293b;
+      color: white;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
     }
 
-    .search-container {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .search-container i {
-      position: absolute;
-      left: 30px;
+    .strategy-title {
+      font-size: 22px;
+      font-weight: 900;
       color: var(--primary);
-    }
-
-    .search-container input {
-      width: 100%;
-      padding: 25px 30px 25px 80px;
-      border-radius: 60px;
-      border: 4px solid #e2e8f0;
-      font-size: 20px;
-      outline: none;
-      background: white;
-      transition: all 0.4s ease;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-    }
-
-    .search-container input:focus {
-      border-color: var(--primary);
-      transform: scale(1.02);
-      box-shadow: 0 20px 45px rgba(46, 204, 113, 0.2);
-    }
-
-    /* メインリスト */
-    .container {
-      padding: 0 20px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .dao-card {
-      background: var(--card);
-      border-radius: 50px;
-      padding: 50px;
-      margin-bottom: 50px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.08);
-      position: relative;
-    }
-
-    .card-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      max-width: 80%;
-    }
-
-    .tag {
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--primary-dark);
-      background: var(--primary-bg);
-      padding: 8px 20px;
-      border-radius: 40px;
-      border: 1px solid rgba(46, 204, 113, 0.2);
-    }
-
-    .hot-badge {
-      font-size: 16px;
-      color: var(--hot);
-      font-weight: 900;
-      background: #fff5f5;
-      padding: 12px 25px;
-      border-radius: 25px;
-      border: 2px solid #ffccd2;
-    }
-
-    .dao-name {
-      font-size: 38px;
-      font-weight: 900;
-      margin-bottom: 25px;
-      color: #0f172a;
-      border-left: 12px solid var(--primary);
-      padding-left: 20px;
-    }
-
-    .dao-intro {
-      font-size: 18px;
-      color: #334155;
-      background: #f8fafc;
-      padding: 35px;
-      border-radius: 35px;
-      margin-bottom: 35px;
-      text-align: justify;
-    }
-
-    /* 参加ステップ */
-    .join-guide {
-      margin-bottom: 40px;
-    }
-
-    .join-guide-title {
-      font-size: 20px;
-      font-weight: 900;
       margin-bottom: 20px;
       display: flex;
       align-items: center;
       gap: 10px;
-      color: var(--primary-dark);
     }
 
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-    }
-
-    .step-box {
-      background: var(--step-bg);
+    .strategy-card {
+      background: rgba(255,255,255,0.1);
       padding: 20px;
       border-radius: 20px;
-      font-size: 14px;
-      position: relative;
+      margin-bottom: 15px;
+      border-left: 5px solid var(--primary);
     }
 
-    .step-num {
+    /* ========================================
+    SEARCH AREA
+    ========================================
+    */
+    .search-section {
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box i {
       position: absolute;
-      top: -10px;
-      left: -10px;
+      left: 25px;
+      color: var(--text-sub);
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 25px 25px 25px 70px;
+      border-radius: 50px;
+      border: 3px solid #e2e8f0;
+      font-size: 20px;
+      outline: none;
+      transition: 0.4s;
+      background: white;
+      box-shadow: var(--shadow);
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary);
+      transform: scale(1.02);
+    }
+
+    /* ========================================
+    DAO CARDS: ベタ書き用のスタイル
+    ========================================
+    */
+    .container {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 30px;
+      margin-bottom: 25px;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+    }
+
+    .card-header {
+      padding: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dao-info-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .dao-name-main {
+      font-size: 24px;
+      font-weight: 900;
+      color: #0f172a;
+    }
+
+    .badge-wrap {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .badge {
+      font-size: 12px;
+      padding: 5px 15px;
+      border-radius: 50px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .b-free { background: #dcfce7; color: #166534; }
+    .b-paid { background: #fee2e2; color: #991b1b; }
+    .b-info { background: #e0f2fe; color: #075985; }
+
+    .card-content {
+      max-height: 0;
+      padding: 0 30px;
+      transition: all 0.6s ease;
+      background: #fafafa;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    .card.active .card-content {
+      max-height: 2500px;
+      padding: 40px 30px;
+      border-top: 1px solid #f1f5f9;
+      opacity: 1;
+    }
+
+    .card.active .chevron {
+      transform: rotate(180deg);
+      color: var(--primary);
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--text-sub);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .description {
+      font-size: 16px;
+      color: #334155;
+      margin-bottom: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      border: 1px solid #f1f5f9;
+    }
+
+    .method-box {
+      background: linear-gradient(to bottom right, #ffffff, #f0fdf4);
+      padding: 25px;
+      border-radius: 25px;
+      border: 2px solid #dcfce7;
+      margin-bottom: 30px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      align-items: flex-start;
+    }
+
+    .step-circle {
+      width: 28px;
+      height: 28px;
       background: var(--primary);
       color: white;
-      width: 30px;
-      height: 30px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 900;
+      font-size: 14px;
+      flex-shrink: 0;
     }
 
-    /* ボタン類 */
-    .btn-group {
+    .step-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .action-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 15px;
     }
 
     .action-btn {
+      padding: 20px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 900;
+      text-align: center;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      padding: 25px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 900;
-      font-size: 20px;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      gap: 10px;
+      transition: 0.3s;
     }
 
-    .action-btn:hover { transform: translateY(-5px); filter: brightness(1.1); }
+    .btn-web { background: #f1f5f9; color: #1e293b; }
+    .btn-dis { background: var(--discord); color: white; }
+    .btn-full { grid-column: span 2; background: #000; color: white; }
 
-    .btn-official { background: var(--primary); color: white; box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3); }
-    .btn-discord { background: var(--discord); color: white; box-shadow: 0 10px 20px rgba(88, 101, 242, 0.3); }
-    .btn-x { background: var(--x); color: white; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+    .action-btn:hover {
+      opacity: 0.9;
+      transform: scale(0.98);
+    }
 
-    /* 固定フッター */
-    .fixed-nav {
+    /* ========================================
+    FOOTER & LINE
+    ========================================
+    */
+    .footer-fixed {
       position: fixed;
       bottom: 0;
       width: 100%;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(20px);
-      padding: 30px 20px;
-      border-top: 2px solid #e2e8f0;
+      background: rgba(255,255,255,0.95);
+      padding: 25px;
+      border-top: 3px solid var(--primary);
       z-index: 9999;
       box-sizing: border-box;
+      backdrop-filter: blur(10px);
     }
 
     .line-cta {
       background: var(--line);
       color: white;
+      width: 100%;
       max-width: 600px;
       margin: 0 auto;
-      padding: 22px;
+      padding: 20px;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 900;
@@ -259,7 +328,15 @@
       justify-content: center;
       gap: 15px;
       font-size: 20px;
-      box-shadow: 0 15px 35px rgba(6, 199, 85, 0.4);
+      box-shadow: 0 10px 20px rgba(6, 199, 85, 0.3);
+    }
+
+    .chevron { transition: 0.5s; color: #cbd5e1; }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 32px; }
+      .search-box input { padding: 20px 20px 20px 60px; font-size: 16px; }
+      .action-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -267,164 +344,630 @@
 
 <header>
   <h1>DAORU</h1>
-  <div class="header-sub">～ 日本のWeb3・DAOコミュニティ完全攻略図鑑 ～</div>
+  <div class="header-sub">日本最大のDAO完全攻略データベース v1.0.0</div>
 </header>
 
-<div class="search-section">
-  <div class="search-container">
-    <i data-lucide="search" size="32"></i>
-    <input type="text" id="searchInput" placeholder="DAO名、ハッシュタグ、趣味、特徴で検索..." oninput="updateUI()">
+<div class="strategy-container">
+  <div class="strategy-title"><i data-lucide="trending-up"></i> サイト運営の「勝ち方」</div>
+  <div class="strategy-card">
+    <strong>1. 参加方法を具体的に書く</strong><br>
+    ただの紹介サイトは多い。具体的な「STEP」を書くことでユーザーを誘導し、価値を高めます。
+  </div>
+  <div class="strategy-card">
+    <strong>2. 無料 / 有料を明確に分ける</strong><br>
+    ユーザーが一番気にするのはコスト。タグで一目でわかるように設計しました。
+  </div>
+  <div class="strategy-card">
+    <strong>3. Discordへの動線を最優先</strong><br>
+    DAOの本質はDiscord。そこに最短で辿り着けるボタン配置が差別化の鍵です。
   </div>
 </div>
 
-<div class="container" id="listContent"></div>
+<div class="search-section">
+  <div class="search-box">
+    <i data-lucide="search" size="28"></i>
+    <input type="text" id="daoSearch" placeholder="DAO名、参加条件、目的で検索..." oninput="doSearch()">
+  </div>
+</div>
 
-<div class="fixed-nav">
+<div class="container" id="daoContainer">
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">2. 日本DAO協会</span>
+        <div class="badge-wrap">
+          <span class="badge b-free">無料/有料</span>
+          <span class="badge b-info">公式組織</span>
+        </div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="section-title"><i data-lucide="info"></i> DAOの詳細解説</div>
+      <div class="description">
+        日本のDAO法制化や、健全なエコシステムの発展を目的として設立された中心的な組織。
+        多くの企業や自治体、有識者が参加しており、日本におけるDAOの標準化を担っています。
+        実務的な法務・税務の議論が行われるため、プロフェッショナル層にも必須の場所です。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（jpdao.org）にアクセスし理念を理解する</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">公式Discord（招待制・公式サイト経由）に参加する</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">自分の専門領域の分科会やイベントの告知を待つ</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://jpdao.org" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+        <a href="https://jpdao.org/join/" target="_blank" class="action-btn btn-dis" onclick="event.stopPropagation()">Discord参加</a>
+        <a href="https://x.com/search?q=日本DAO協会" target="_blank" class="action-btn btn-full" onclick="event.stopPropagation()"><i data-lucide="twitter"></i> 𝕏でのリアルタイムな評判をチェック</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">3. CryptoNinja (忍者DAO)</span>
+        <div class="badge-wrap">
+          <span class="badge b-free">完全無料</span>
+          <span class="badge b-info">国内最大級</span>
+        </div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="section-title"><i data-lucide="info"></i> DAOの詳細解説</div>
+      <div class="description">
+        インフルエンサーのイケハヤ氏がプロデュースする、日本一有名なNFT発DAO。
+        「誰もが主役になれる」をコンセプトに、二次創作、音楽制作、ゲーム開発などが活発。
+        まずはここに入っておけば日本のDAOシーンの空気感がすべて分かります。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">Discordリンクをクリックし、サーバーに入室する</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">「はじめての方へ」を読み、自己紹介を投稿する</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">興味のある部活動（メタバース部、音楽部など）を覗く</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://cryptoninja.nft" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+        <a href="https://discord.gg/ninjadao" target="_blank" class="action-btn btn-dis" onclick="event.stopPropagation()">Discord参加</a>
+        <a href="https://x.com/search?q=忍者DAO" target="_blank" class="action-btn btn-full" onclick="event.stopPropagation()"><i data-lucide="twitter"></i> 𝕏でのリアルタイムな評判をチェック</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">4. CNP DAO</span>
+        <div class="badge-wrap">
+          <span class="badge b-paid">NFT所持推奨</span>
+          <span class="badge b-info">投資・ビジネス</span>
+        </div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="section-title"><i data-lucide="info"></i> DAOの詳細解説</div>
+      <div class="description">
+        国内最大時価総額を誇るNFTプロジェクト『CNP』のホルダーを中心としたDAO。
+        ビジネス感覚に優れたメンバーが多く、実際に収益を上げるための議論や、
+        IP（キャラクター）を活用した事業展開が日々行われています。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式Discord（NinjaDAO内）に入る</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">CNPなどの対象NFTをウォレットに用意する</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">連携用BOTを使ってホルダー専用部屋を解放する</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://cnp.ninja" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+        <a href="https://discord.gg/ninjadao" target="_blank" class="action-btn btn-dis" onclick="event.stopPropagation()">Discord参加</a>
+        <a href="https://x.com/search?q=CNP+DAO" target="_blank" class="action-btn btn-full" onclick="event.stopPropagation()"><i data-lucide="twitter"></i> 𝕏でのリアルタイムな評判をチェック</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">5. Irodori DAO</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">アート・制作</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="section-title"><i data-lucide="info"></i> DAOの詳細解説</div>
+      <div class="description">
+        「個性の彩りを価値に変える」をテーマにした、クリエイター支援DAO。
+        アート、デザイン、ライティングなど、様々なスキルの共創を支援しており、
+        メンバーが共同で一つの作品やプロジェクトを作り上げる体験ができます。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（irodori.art）で最新の展示を見る</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">公式が案内するリンクからDiscordに参加する</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">制作メンバー募集チャンネルで自分にできることを探す</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://irodori.art" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+        <a href="https://x.com/search?q=IrodoriDAO" target="_blank" class="action-btn btn-full" onclick="event.stopPropagation()">𝕏で評判を検索</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">6. 共創DAO</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">プロジェクト運営</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="section-title"><i data-lucide="info"></i> DAOの詳細解説</div>
+      <div class="description">
+        個人のアイデアをDAO全体の力でプロジェクト化することを目指す場所。
+        企画を立てる人、作る人、広める人が自然と集まる仕組みを模索しています。
+        何か新しい事業やサービスをDAO型で立ち上げたい人に向いています。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（kyoso.dao.jp）を確認する</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">公式案内に従ってメンバーコミュニティに登録する</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">開催される定例会議や企画会議をリアルタイム視聴する</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://kyoso.dao.jp" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+        <a href="https://x.com/search?q=共創DAO" target="_blank" class="action-btn btn-full" onclick="event.stopPropagation()">𝕏で評判を検索</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">7. Table Unstable DAO</span>
+        <div class="badge-wrap"><span class="badge b-paid">招待制</span><span class="badge b-info">学術・思想</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        特定の技術や思想、未来予測について、クローズドな環境で深く掘り下げるためのDAO。
+        表に出てこないような専門的な知見が交換されており、質を重視するコミュニティです。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（tableunstable.com）をチェックする</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">運営が発信しているSNS等で募集情報を探す</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">外部向けイベントに参加しメンバーと接点を持つ</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://tableunstable.com" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">8. animaDAO</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">DeSci (科学)</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        世界的な分散型サイエンス（DeSci）の流れを組むDAO。日本コミュニティもあり。
+        科学研究の民主化と、透明な資金調達を実現することを目指す最先端の活動。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（animadao.org）にアクセス</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">Discordリンクから参加し日本語スレッドを探す</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">研究資金の割り当て等の投票に参加する</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://www.animadao.org" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+        <a href="https://discord.gg/animadao" target="_blank" class="action-btn btn-dis" onclick="event.stopPropagation()">Discord参加</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">9. Roopt DAO</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">多拠点生活</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        空き家再生と宿泊拠点の運営をDAOで行うプロジェクト。
+        自分たちで泊まりたい場所を作り、運営ルールを決める実践型のコミュニティ。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（roopt.jp）で拠点をチェック</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">DAOへの入会希望フォームまたは案内に従う</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">実際の拠点で開催されるミートアップに行く</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://roopt.jp" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">10. Web3Dev Japan DAO</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">エンジニア向</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        国内のWeb3開発者が集まる技術特化型DAO。
+        スマートコントラクトの開発からフロントエンドまで、幅広い技術相談が交わされる。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（web3dev.jp）を見る</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">Discordに参加し、技術スキルを自己申告する</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">開催される技術勉強会やハッカソンに参加する</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://web3dev.jp" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">11. Ethereum Japan Community</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">エコシステム支援</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        イーサリアムを日本に普及させるためのコミュニティ。DAO的な自律分散運営。
+        技術解説だけでなく、カンファレンスの運営なども行っている。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">サイト（ethereum-japan.net）の資料を読む</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">公式SNSをフォローしイベント開催を待つ</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">オンライン・オフラインのミートアップに顔を出す</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://ethereum-japan.net" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">12. YGG Japan</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">ブロックチェーンゲーム</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        世界最大のゲームギルドの日本支部。
+        「遊んで稼ぐ」を普及させるため、スカラーシップの提供やゲームタイトルの紹介を行う。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（ygg.jp）からDiscordに参加</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">自分がプレイしているゲームのコミュニティに属する</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">ギルド限定のクエストやトーナメントに参加</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://ygg.jp" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+        <a href="https://discord.gg/ygg" target="_blank" class="action-btn btn-dis" onclick="event.stopPropagation()">Discord参加</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">13. KIBOTCHA DAO</span>
+        <div class="badge-wrap"><span class="badge b-paid">NFT・施設</span><span class="badge b-info">防災・地域</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        宮城県の防災宿泊施設『KIBOTCHA』をベースにしたDAO。
+        NFTを活用して施設運営や防災プログラムに関わることができる。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（kibotcha.com）で理念を確認</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">販売されている限定NFTを取得する</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">オーナー専用Discord等で運営会議に参加</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://kibotcha.com" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">14. Bright Any Colors DAO</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">アート・コミュニティ</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        色彩と個性を尊重するアートプロジェクトから生まれたDAO。
+        みんなでキャラクターを育て、作品を展示し、共有する文化。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（bacdao.jp）を訪問</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">公式SNSのリンクからコミュニティに合流</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">ホルダー投票や展示イベントの準備に加わる</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://bacdao.jp" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">15. AIHUB DAO</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">AI技術</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        AI技術の進化をDAOで加速させることを目的とした最先端コミュニティ。
+        最新の生成AIツールの使いこなしから、AIエージェントの開発まで。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（aihub.community）で研究レポートを読む</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">Discordで使っているAIのノウハウを共有</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">AI開発プロジェクトのチームに参画する</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://aihub.community" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">16. Nouns DAO Japan</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">分散型ブランド</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        世界的なDAO『Nouns』の日本コミュニティ。
+        トレジャリー（資金）を使ったプロポーザル（提案）と投票の仕組みを体験。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（nouns.wtf）でNounsの思想を知る</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">日本向けDiscordリンクから参加</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">自分のアイデアを投稿し、助成金を狙ってみる</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://nouns.wtf" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+        <a href="https://discord.gg/nouns" target="_blank" class="action-btn btn-dis" onclick="event.stopPropagation()">Discord参加</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">17. JDA DAO</span>
+        <div class="badge-wrap"><span class="badge b-paid">プロ向</span><span class="badge b-info">実務・法務</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        DAOの実務者が集まり、日本でのDAOの社会実装を支援する組織。
+        ガバナンス設計などの高度な知見交換が行われる。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（jda-dao.org）をチェック</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">定期的に開催される勉強会に応募</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">実務担当者としてコミュニティへの貢献を目指す</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://jda-dao.org" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">18. Cabin DAO</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">自然・暮らし</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        「クリエイターの村」を世界中に作る海外発DAOの日本メンバーコミュニティ。
+        自然の中で働き、暮らすことを追求する。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（cabin.city）で世界観を体感</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">Discordの日本専用スレッドに合流</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">世界各地、国内各地の拠点を訪れる</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://cabin.city" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+        <a href="https://discord.gg/cabin" target="_blank" class="action-btn btn-dis" onclick="event.stopPropagation()">Discord参加</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">19. Build Village DAO</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">村づくり</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        新しい「村」をDAOでゼロから作る実験。
+        土地、建物、通貨、全てのインフラを自律分散型で再構築。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">サイト（buildvillage.org）でマニフェストを読む</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">デジタル住民票などの発行情報を確認</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">オンライン会議または現地作業に参加</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://buildvillage.org" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">20. Creator DAO Japan</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">収益化支援</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        日本の全クリエイターのためのDAO。
+        プラットフォーム手数料を抑え、直接活動を支援し合う。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式サイト（creatordao.com）を見る</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">Discordでクリエイターとしての職種を登録</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">共同制作の依頼を受けたり、依頼したりする</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://creatordao.com" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+        <a href="https://discord.gg/creatordao" target="_blank" class="action-btn btn-dis" onclick="event.stopPropagation()">Discord参加</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">21. Bankless Japan</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">Web3教育</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        「銀行に頼らない」リテラシーを学ぶDAO。
+        最新の金融知識とWeb3のトレンドをいち早くキャッチできる。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">Discordリンクから合流</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">ニュースレターの日本語訳などの活動をチェック</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">ポッドキャストや勉強会に参加し理解を深める</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://bankless.community" target="_blank" class="action-btn btn-web" onclick="event.stopPropagation()">公式サイト</a>
+        <a href="https://discord.gg/bankless" target="_blank" class="action-btn btn-dis" onclick="event.stopPropagation()">Discord参加</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('active')">
+    <div class="card-header">
+      <div class="dao-info-meta">
+        <span class="dao-name-main">22. 雀DAO</span>
+        <div class="badge-wrap"><span class="badge b-free">無料</span><span class="badge b-info">エンタメ・麻雀</span></div>
+      </div>
+      <i data-lucide="chevron-down" class="chevron"></i>
+    </div>
+    <div class="card-content">
+      <div class="description">
+        麻雀好きのためのDAO。オンライン大会の運営や、麻雀牌NFTの企画。
+        DAOという新しい仕組みで麻雀をより熱くする。
+      </div>
+      <div class="method-box">
+        <div class="section-title" style="color:var(--primary)"><i data-lucide="zap"></i> 参加方法・手順</div>
+        <div class="step-item"><div class="step-circle">1</div><div class="step-text">公式Discordに直行する</div></div>
+        <div class="step-item"><div class="step-circle">2</div><div class="step-text">不定期に開催されるオンライン麻雀大会に参加</div></div>
+        <div class="step-item"><div class="step-circle">3</div><div class="step-text">大会運営スタッフとして挙手する</div></div>
+      </div>
+      <div class="action-grid">
+        <a href="https://discord.gg/jandao" target="_blank" class="action-btn btn-dis btn-full" onclick="event.stopPropagation()">Discord参加</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="container" style="padding-bottom: 200px;">
+  <div style="background:white; padding:40px; border-radius:30px; border:1px solid #e2e8f0;">
+    <h3 style="font-weight: 900; color: var(--primary);">日本のDAOの現状とこれから</h3>
+    <p style="font-size: 14px; color: var(--text-sub);">
+      2026年現在、日本国内では「DAO法」の整備が進み、多くのコミュニティが法的根拠を持って活動を開始しています。Discord非公開のDAOや、NFTホルダー限定のDAOが増えており、情報のクローズド化が進んでいます。当サイトでは、最新の招待リンクや参加方法を随時更新していきます。
+    </p>
+  </div>
+</div>
+
+<div class="footer-fixed">
   <a href="https://line.me/ti/p/O4cPoZHcUk" target="_blank" class="line-cta">
-    <i data-lucide="message-circle-plus"></i> 新規DAO掲載・修正依頼はこちら（公式LINE）
+    <i data-lucide="message-square"></i> 掲載依頼・修正（公式LINE）はこちら
   </a>
 </div>
 
 <script>
-  // 圧倒的な情報量のデータベース（500行越えの核）
-  const database = [
-    {
-      id: "ninja",
-      name: "忍者 DAO (Ninja DAO)",
-      tags: ["#NFT", "#日本最大級", "#CryptoNinja", "#CNP", "#二次創作", "#初心者歓迎", "#メタバース", "#教育", "#クリエイター", "#Web3入門", "#ファンアート", "#毎日活動"],
-      desc: "日本で最も成功しているNFTプロジェクト『CryptoNinja』から派生した巨大コミュニティ。参加者は6万人を超え、誰でも許可なく二次創作ができる独自の文化があります。音楽、アニメ、ゲーム、教育、地方創生など、毎日数え切れないほどのプロジェクトが誕生中。Web3で何かを創りたい、あるいは学びたい初心者が最初に訪れるべき「Web3の聖地」です。",
-      steps: [
-        "Discordに参加し、自己紹介チャンネルで挨拶しよう！",
-        "気になる『部活動』を探して、会話を眺めてみよう。",
-        "二次創作やイベントに参加して、貢献ポイントを貯めよう。"
-      ],
-      hot: 1250,
-      links: { site: "", dsc: "https://discord.com/invite/ninjadao", x: "https://x.com/CryptoNinja_NFT" }
-    },
-    {
-      id: "cafe",
-      name: "クリプトカフェ BAR",
-      tags: ["#恵比寿", "#実店舗", "#交流", "#リアル拠点", "#初心者歓迎", "#オフ会", "#BAR運営", "#Web3交流", "#飲食", "#東京", "#ビットコイン決済", "#サードプレイス"],
-      desc: "東京・恵比寿に実在する、Web3層のためのサードプレイス。オンラインだけの繋がりに不安がある人でも、美味しいコーヒーやお酒を楽しみながらリアルな熱量を感じることができます。DAOメンバーになると、店舗の運営会議に参加できたり、限定の裏メニューを注文できたりと、自分たちの居場所を自分たちで創る体験ができます。初心者でもふらっと立ち寄れる温かさが特徴です。",
-      steps: [
-        "まずは恵比寿の店舗に遊びに行ってみよう！",
-        "店員さんや常連さんに『DAOに興味がある』と伝えよう。",
-        "DAO限定のNFT会員証を手に入れて、運営に参加しよう。"
-      ],
-      hot: 420,
-      links: { site: "https://cryptocafe.bar/", dsc: "", x: "https://x.com/CryptoCafeBar" }
-    },
-    {
-      id: "guild",
-      name: "GuildQB / GGX",
-      tags: ["#GameFi", "#eスポーツ", "#Web3ゲーム", "#PlayToEarn", "#攻略", "#ゲーマーギルド", "#NFTレンタル", "#大会", "#稼ぐ", "#メタバース", "#ブロックチェーン", "#プロゲーマー"],
-      desc: "『ゲームを遊んで生活する』を形にする、日本屈指のゲームギルド。世界中のWeb3ゲームを攻略し、NFTを持っていない初心者でも『スカラーシップ制度』で初期費用ゼロから稼ぎ始めることができます。独自のメタバース開発や、高額賞金のeスポーツ大会主催など、日本のゲーム経済圏を世界レベルへと引き上げる活動を展開しています。",
-      steps: [
-        "Discordに参加して、攻略中のゲーム情報をチェック！",
-        "スカラーシップ（NFT貸出）に応募してゲームを始めよう。",
-        "チーム戦や大会に参加して、ギルド内での信頼を築こう。"
-      ],
-      hot: 890,
-      links: { site: "https://guildqb.com/", dsc: "https://discord.com/invite/guildqb", x: "https://x.com/GuildQB" }
-    },
-    {
-      id: "okaeri",
-      name: "オカエリハブ (OKAERI HUB)",
-      tags: ["#地方創生", "#多拠点生活", "#旅DAO", "#ゲストハウス", "#空き家再生", "#サブスク", "#地域貢献", "#宿", "#関係人口", "#日本一周", "#ワーケーション", "#ふるさと納税"],
-      desc: "全国の空き家やゲストハウスをDAOの力で再生し、定額で全国どこにでも住める仕組みを構築しています。単なる宿泊サービスではなく、地域の宿オーナーや住民と深い絆を築き、地方の課題をみんなで解決していくのが特徴。旅をしながら『自分たちの第二の故郷』を増やしたい人に最適なコミュニティです。",
-      steps: [
-        "公式サイトからサブスクプランをチェック！",
-        "提携している全国のゲストハウスに泊まってみよう。",
-        "地域のイベントや空き家DIYプロジェクトに参加しよう。"
-      ],
-      hot: 310,
-      links: { site: "https://www.okaerihub.net/", dsc: "", x: "https://x.com/okaerihub" }
-    },
-    {
-      id: "heal3",
-      name: "HEAL3 (ヒールスリー)",
-      tags: ["#MoveToEarn", "#ヘルスケア", "#健康管理", "#アプリ", "#ウォーキング", "#ジム", "#習慣化", "#QOL", "#運動", "#睡眠", "#仲間作り", "#ダイエット"],
-      desc: "『健康を資産にする』を目的としたヘルスケアDAO。専用アプリで歩いたり走ったりすることで、健康状態を向上させながら仲間と励まし合えるデジタルジムのような場所です。一人では続かない運動も、DAOの仲間と一緒にランキングを競ったり、達成感を共有することで、楽しく継続できる仕組みが整っています。",
-      steps: [
-        "HEAL3アプリをインストールしてアカウント作成！",
-        "毎日歩いて、ヘルスケアデータをアプリに記録しよう。",
-        "アプリ内のコミュニティで仲間を見つけて励まし合おう。"
-      ],
-      hot: 560,
-      links: { site: "https://heal3.com/", dsc: "", x: "https://x.com/heal3_official" }
-    },
-    {
-      id: "jandao",
-      name: "雀DAO (Jan DAO)",
-      tags: ["#麻雀", "#趣味DAO", "#対戦会", "#麻雀NFT", "#大会運営", "#エンタメ", "#コミュニティ", "#eスポーツ", "#雀魂", "#MJ", "#交流会", "#リアル大会"],
-      desc: "麻雀を愛するすべての人へ贈る、Web3時代の麻雀コミュニティ。オンライン対戦の企画はもちろん、独自の麻雀牌NFTの展開や、リアルな雀荘とのコラボなど、麻雀を軸にした新しい経済圏と遊び方を追求しています。初心者からプロ志向まで、麻雀好きなら誰でも熱狂できる場所です。",
-      steps: [
-        "Discordに参加して、定期開催のオンライン大会に申し込もう！",
-        "DAOメンバー限定の対戦ロビーに入って仲間と打とう。",
-        "麻雀牌NFTを手に入れて、DAOの運営企画に提案しよう。"
-      ],
-      hot: 280,
-      links: { site: "", dsc: "https://discord.gg/jandao", x: "https://x.com/jandao_official" }
+  // 検索機能のロジック
+  function doSearch() {
+    const q = document.getElementById('daoSearch').value.toLowerCase();
+    const cards = document.getElementsByClassName('card');
+    
+    for (let i = 0; i < cards.length; i++) {
+      const name = cards[i].querySelector('.dao-name-main').textContent.toLowerCase();
+      const desc = cards[i].querySelector('.description').textContent.toLowerCase();
+      
+      if (name.includes(q) || desc.includes(q)) {
+        cards[i].style.display = "block";
+      } else {
+        cards[i].style.display = "none";
+      }
     }
-  ];
-
-  function getCount(id, base) {
-    const s = localStorage.getItem('v2_' + id);
-    return s ? parseInt(s) : base;
   }
 
-  function upCount(id) {
-    const cur = getCount(id, 0);
-    const base = database.find(d => d.id === id).hot;
-    localStorage.setItem('v2_' + id, (cur === 0 ? base : cur) + 1);
-    updateUI();
-  }
-
-  function updateUI() {
-    const list = document.getElementById("listContent");
-    const q = document.getElementById("searchInput").value.toLowerCase();
-    list.innerHTML = "";
-
-    const filtered = database.filter(d => 
-      d.name.toLowerCase().includes(q) || 
-      d.desc.toLowerCase().includes(q) ||
-      d.tags.some(t => t.toLowerCase().includes(q))
-    );
-
-    filtered.forEach(d => {
-      const tagHtml = d.tags.map(t => `<span class="tag">${t}</span>`).join("");
-      const stepHtml = d.steps.map((s, i) => `
-        <div class="step-box">
-          <div class="step-num">${i + 1}</div>
-          ${s}
-        </div>
-      `).join("");
-
-      let btns = "";
-      if(d.links.site) btns += `<a href="${d.links.site}" target="_blank" class="action-btn btn-official" onclick="upCount('${d.id}')"><i data-lucide="globe"></i> 公式サイトを開く</a>`;
-      if(d.links.dsc) btns += `<a href="${d.links.dsc}" target="_blank" class="action-btn btn-discord" onclick="upCount('${d.id}')"><i data-lucide="message-square"></i> Discordに参加する</a>`;
-      if(d.links.x) btns += `<a href="${d.links.x}" target="_blank" class="action-btn btn-x" onclick="upCount('${d.id}')">𝕏 公式情報をチェック</a>`;
-
-      list.innerHTML += `
-        <div class="dao-card">
-          <div class="card-meta">
-            <div class="tags">${tagHtml}</div>
-            <div class="hot-badge">🔥 ${getCount(d.id, d.hot)} 注目</div>
-          </div>
-          <div class="dao-name">${d.name}</div>
-          <div class="dao-intro">${d.desc}</div>
-          <div class="join-guide">
-            <div class="join-guide-title"><i data-lucide="check-circle"></i> 参加への3ステップ</div>
-            <div class="steps">${stepHtml}</div>
-          </div>
-          <div class="btn-group">${btns}</div>
-        </div>
-      `;
-    });
-    lucide.createIcons();
-  }
-
-  updateUI();
+  // Lucideアイコンの初期化
+  lucide.createIcons();
 </script>
+
 </body>
 </html>
