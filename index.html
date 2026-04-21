@@ -8,8 +8,9 @@
 <style>
 :root {
   --primary: #2ecc71;
+  --primary-light: #ebfaf0;
   --line-color: #06C755;
-  --bg: #f8fafc;
+  --bg: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   --card: #ffffff;
   --text: #1e293b;
   --text-light: #64748b;
@@ -21,83 +22,115 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
-  /* LINEボタンと被らないように余白を確保 */
-  padding-bottom: 110px;
+  padding-bottom: 100px;
+  min-height: 100vh;
 }
 
 header {
-  background: var(--card);
-  padding: 30px 20px;
+  padding: 40px 20px;
   text-align: center;
-  border-bottom: 1px solid #e2e8f0;
 }
 
-h1 { margin: 0; font-size: 26px; color: var(--primary); letter-spacing: 1px; }
-.sub { font-size: 12px; color: var(--text-light); }
+h1 { 
+  margin: 0; 
+  font-size: 32px; 
+  color: var(--primary); 
+  letter-spacing: 2px;
+  font-weight: 900;
+}
+.sub { font-size: 13px; color: var(--text-light); margin-top: 5px; }
 
-.section-title {
-  padding: 20px 20px 10px;
-  font-size: 15px;
-  font-weight: 800;
+/* 検索エリア */
+.search-container {
+  padding: 0 20px 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-box i {
+  position: absolute;
+  left: 15px;
   color: var(--text-light);
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  padding: 0 15px 20px;
-}
-
-.cat-card {
-  background: var(--card);
+.search-box input {
+  width: 100%;
+  padding: 15px 15px 15px 45px;
+  border-radius: 30px;
   border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 15px 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  background: var(--card);
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.search-box input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.15);
+}
+
+/* リストエリア */
+.section-header {
+  padding: 10px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.results-count { font-size: 13px; color: var(--text-light); font-weight: bold; }
+
+.container { 
+  padding: 0 15px; 
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.item-card {
+  background: var(--card);
+  border-radius: 24px;
+  padding: 24px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.cat-card i { color: var(--primary); margin-bottom: 8px; width: 28px; height: 28px; }
-.cat-card .cat-name { font-size: 13px; font-weight: bold; margin-bottom: 2px; }
-.cat-card .cat-eng { font-size: 10px; color: var(--text-light); text-transform: uppercase; }
+.item-card:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+.item-card:active { transform: scale(0.98); }
 
-.cat-card.active {
-  border-color: var(--primary);
-  background: #f0fff4;
-  box-shadow: 0 4px 12px rgba(46, 204, 113, 0.15);
-}
-
-.container { padding: 0 15px; }
-.item-card {
-  background: var(--card);
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 12px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+.card-tags {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
 }
-.item-info h3 { margin: 0; font-size: 16px; }
-.item-info p { margin: 4px 0 0; font-size: 13px; color: var(--text-light); }
-.arrow { color: #cbd5e1; font-weight: bold; }
 
-/* LINE 固定フッター */
+.tag {
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.item-info h3 { margin: 0; font-size: 20px; font-weight: 800; }
+.item-info p { margin: 8px 0 0; font-size: 14px; color: var(--text-light); }
+
+/* LINE 固定バー */
 .fixed-footer {
   position: fixed;
   bottom: 0; left: 0; width: 100%;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border-top: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(15px);
+  border-top: 1px solid rgba(226, 232, 240, 0.5);
   padding: 15px 20px;
   box-sizing: border-box;
   display: flex;
@@ -111,27 +144,38 @@ h1 { margin: 0; font-size: 26px; color: var(--primary); letter-spacing: 1px; }
   text-decoration: none;
   width: 100%;
   max-width: 400px;
-  height: 50px;
-  border-radius: 25px;
+  height: 54px;
+  border-radius: 27px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   font-weight: bold;
-  font-size: 15px;
-  box-shadow: 0 4px 12px rgba(6, 199, 85, 0.2);
+  box-shadow: 0 10px 20px rgba(6, 199, 85, 0.2);
 }
 
+/* モーダル */
 .modal {
   display: none; position: fixed; z-index: 1000;
   top:0; left:0; width:100%; height:100%;
-  background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(4px);
+  background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px);
 }
 .modal-content {
-  background: var(--card); width: 88%; max-width: 400px;
-  margin: 80px auto; padding: 25px; border-radius: 24px;
+  background: var(--card); width: 90%; max-width: 450px;
+  margin: 60px auto; padding: 30px; border-radius: 30px;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+  position: relative;
 }
-.close-btn { float: right; cursor: pointer; color: var(--text-light); font-size: 20px; }
+.close-btn { 
+  position: absolute; top: 20px; right: 20px;
+  cursor: pointer; color: var(--text-light); font-size: 24px; 
+}
+.modal-url {
+  word-break: break-all;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: bold;
+}
 </style>
 </head>
 <body>
@@ -141,11 +185,17 @@ h1 { margin: 0; font-size: 26px; color: var(--primary); letter-spacing: 1px; }
   <div class="sub">Discover Your DAO Opportunity</div>
 </header>
 
-<div class="section-title"><i data-lucide="layout-grid" size="18"></i> 目的別に探す</div>
+<div class="search-container">
+  <div class="search-box">
+    <i data-lucide="search" size="20"></i>
+    <input type="text" id="searchInput" placeholder="気になるキーワードを入力..." oninput="render()">
+  </div>
+</div>
 
-<div class="category-grid" id="categoryGrid"></div>
+<div class="section-header">
+  <div class="results-count" id="countText">プロジェクトを表示中</div>
+</div>
 
-<div class="section-title" id="listTitle">「作る・働く」のプロジェクト</div>
 <div class="container" id="list"></div>
 
 <div class="fixed-footer">
@@ -163,75 +213,65 @@ h1 { margin: 0; font-size: 26px; color: var(--primary); letter-spacing: 1px; }
 </div>
 
 <script>
-const categories = [
-  { id: "service", name: "作る・働く", eng: "Service DAO", icon: "briefcase" },
-  { id: "social", name: "つながる", eng: "Social DAO", icon: "users" },
-  { id: "invest", name: "増やす・投資", eng: "Investment DAO", icon: "trending-up" },
-  { id: "protocol", name: "仕組み・運営", eng: "Protocol DAO", icon: "cpu" },
-  { id: "collector", name: "集める", eng: "Collector DAO", icon: "shapes" },
-  { id: "grant", name: "支える・応援", eng: "Grants DAO", icon: "heart" },
-  { id: "media", name: "発信する", eng: "Media DAO", icon: "pen-tool" },
-  { id: "venture", name: "育てる", eng: "Venture DAO", icon: "rocket" }
+const items = [
+  { 
+    name: "忍者 DAO", 
+    desc: "日本最大級！圧倒的な熱量のコミュニティ", 
+    tags: ["初心者歓迎", "二次創作", "ゲーム大会", "毎日がお祭り"],
+    long: "NFTプロジェクト『CryptoNinja』の公式コミュニティ。誰でも参加でき、イラスト、音楽、メタバース、ゲームなど、数えきれないほどのプロジェクトが同時進行中！Web3の楽しさを知るならまずはここ！\n\nDiscord: https://discord.com/invite/ninjadao"
+  },
+  { 
+    name: "クリプトカフェ BAR", 
+    desc: "恵比寿にあるWeb3好きの秘密基地", 
+    tags: ["リアル店舗", "交流", "恵比寿", "ドリンク片手に"],
+    long: "東京・恵比寿に実在する、Web3やクリプト好きが集まるカフェ＆バー。NFTを会員証のように使ったり、オフラインでのリアルな繋がりが生まれる場所です。初心者さんも大歓迎！\n\nURL: https://cryptocafe.bar/"
+  },
+  { 
+    name: "ギルドキュービー (GuildQB)", 
+    desc: "ゲームで生きていくを形にするDAO", 
+    tags: ["Web3ゲーム", "大会主催", "賞金あり", "攻略"],
+    long: "最新のブロックチェーンゲームの攻略や、大会主催を行うゲームDAO。プロからアマチュアまで、ゲームを全力で楽しみ、新しい経済圏を作る仲間が集まっています。\n\nDiscord: https://discord.com/invite/guildqb\n公式サイト: https://guildqb.com/"
+  },
+  { 
+    name: "オカエリハブ", 
+    desc: "旅と多拠点生活を楽しむ新しい形", 
+    tags: ["ゲストハウス", "サブスク", "多拠点居住", "地方創生"],
+    long: "全国の宿のオーナーたちが協力して運営するDAO。月額定額で各地の拠点に滞在でき、行く先々で『ただいま』と言える温かい関係性が作れるプロジェクトです。\n\nURL: https://www.okaerihub.net/"
+  }
 ];
-
-// 初期表示データ
-let items = [
-  { name: "Crypto Investors JP", desc: "国内最大級の投資家コミュニティ。最新の市場動向や案件情報の共有が活発です。" },
-  { name: "Web3 Media DAO", desc: "みんなで執筆する分散型メディア。Web3の知識を深めながら発信活動ができます。" },
-  { name: "和組 (Wagumi)", desc: "日本最大級のWeb3コミュニティ。初心者から専門家までDAOの知見を共有しています。" }
-];
-
-
-  
-
-let currentCat = "service";
 
 function init() {
-  const grid = document.getElementById('categoryGrid');
-  grid.innerHTML = "";
-  categories.forEach(cat => {
-    const div = document.createElement('div');
-    div.className = `cat-card ${cat.id === currentCat ? 'active' : ''}`;
-    div.id = `cat-${cat.id}`;
-    div.onclick = () => selectCategory(cat.id);
-    div.innerHTML = `
-      <i data-lucide="${cat.icon}"></i>
-      <div class="cat-name">${cat.name}</div>
-      <div class="cat-eng">${cat.eng}</div>
-    `;
-    grid.appendChild(div);
-  });
   lucide.createIcons();
-  render();
-}
-
-function selectCategory(id) {
-  currentCat = id;
-  const target = categories.find(c => c.id === id);
-  document.querySelectorAll('.cat-card').forEach(el => el.classList.remove('active'));
-  document.getElementById(`cat-${id}`).classList.add('active');
-  document.getElementById('listTitle').innerText = `「${target.name}」の一覧`;
   render();
 }
 
 function render() {
   const list = document.getElementById("list");
+  const query = document.getElementById("searchInput").value.toLowerCase();
   list.innerHTML = "";
-  const filtered = items.filter(i => i.cat === currentCat);
-  
+
+  const filtered = items.filter(item => 
+    item.name.toLowerCase().includes(query) || 
+    item.desc.toLowerCase().includes(query) ||
+    item.tags.some(tag => tag.toLowerCase().includes(query))
+  );
+
+  document.getElementById("countText").innerText = `${filtered.length} 件のプロジェクト`;
+
   if(filtered.length === 0) {
-    list.innerHTML = "<p style='text-align:center; opacity:0.5; font-size:13px; padding:40px 0;'>まだ案件がありません</p>";
+    list.innerHTML = "<p style='text-align:center; opacity:0.5; padding:40px 0;'>見つかりませんでした。別の言葉で試してみてください。</p>";
     return;
   }
 
   filtered.forEach((item) => {
+    const tagsHtml = item.tags.map(t => `<span class="tag">#${t}</span>`).join("");
     list.innerHTML += `
       <div class="item-card" onclick="openModal('${item.name}')">
+        <div class="card-tags">${tagsHtml}</div>
         <div class="item-info">
           <h3>${item.name}</h3>
           <p>${item.desc}</p>
         </div>
-        <div class="arrow">＞</div>
       </div>
     `;
   });
@@ -239,11 +279,17 @@ function render() {
 
 function openModal(name) {
   const item = items.find(i => i.name === name);
+  const tagsHtml = item.tags.map(t => `<span class="tag">#${t}</span>`).join("");
+  
+  // URL部分をリンクとして表示するための簡単な処理
+  const formattedLong = item.long.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" class="modal-url">$1</a>');
+
   document.getElementById("detail").innerHTML = `
-    <h2 style="color:var(--primary); margin-top:0;">${item.name}</h2>
-    <p style="font-size:14px; color:var(--text-light); border-bottom:1px solid #eee; padding-bottom:15px;">${item.desc}</p>
-    <div style="font-size:15px; white-space:pre-wrap; margin: 20px 0;">${item.long}</div>
-    <button style="width:100%; padding:14px; background:var(--primary); color:white; border:none; border-radius:12px; font-weight:bold; cursor:pointer;" onclick="closeModal()">閉じる</button>
+    <div style="margin-bottom:15px;">${tagsHtml}</div>
+    <h2 style="color:var(--primary); margin:0 0 10px 0; font-size:24px;">${item.name}</h2>
+    <p style="font-size:15px; font-weight:bold; color:var(--text-light); margin-bottom:20px;">${item.desc}</p>
+    <div style="background:#f8fafc; padding:20px; border-radius:20px; font-size:14px; white-space:pre-wrap; margin-bottom:20px; border:1px solid #eee; line-height:1.8;">${formattedLong}</div>
+    <button style="width:100%; padding:16px; background:var(--primary); color:white; border:none; border-radius:15px; font-weight:bold; font-size:16px; cursor:pointer;" onclick="closeModal()">閉じる</button>
   `;
   document.getElementById("modal").style.display = "block";
 }
