@@ -2,142 +2,106 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAORU | DAO Discovery</title>
-<script src="https://unpkg.com/lucide@latest"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DAORU</title>
 <style>
 :root {
   --primary: #2ecc71;
-  --primary-light: #ebfaf0;
-  --line-color: #06C755;
   --bg: #f8fafc;
   --card: #ffffff;
   --text: #1e293b;
   --text-light: #64748b;
-  --hot-color: #e74c3c;
-  --discord-color: #5865F2;
-  --x-color: #000000;
+  --hot: #e74c3c;
 }
 
-body {
-  margin: 0;
-  font-family: sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  padding-bottom: 100px;
+body { margin: 0; font-family: sans-serif; background: var(--bg); color: var(--text); padding-bottom: 80px; }
+header { padding: 30px 20px; text-align: center; background: white; border-bottom: 1px solid #eee; }
+h1 { margin: 0; font-size: 28px; color: var(--primary); font-weight: 900; }
+
+.container { padding: 15px; max-width: 500px; margin: 0 auto; }
+.card {
+  background: var(--card); border-radius: 15px; padding: 20px; margin-bottom: 12px;
+  border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
+.card-top { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 11px; }
+.hot-tag { color: var(--hot); font-weight: bold; }
+.card-name { font-size: 18px; font-weight: bold; margin: 0 0 5px 0; }
+.card-desc { font-size: 14px; color: var(--text-light); margin-bottom: 15px; }
 
-header { padding: 30px 20px; text-align: center; }
-h1 { margin: 0; font-size: 30px; color: var(--primary); font-weight: 900; }
-
-.container { padding: 0 15px; max-width: 600px; margin: 0 auto; }
-.item-card {
-  background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 15px;
-  border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-  cursor: pointer;
+/* ボタン類 */
+.btn-group { display: flex; flex-direction: column; gap: 8px; }
+.btn {
+  display: block; width: 100%; padding: 12px; border-radius: 10px;
+  text-align: center; text-decoration: none; font-weight: bold; font-size: 14px;
 }
+.btn-site { background: var(--primary); color: white; }
+.btn-discord { background: #5865F2; color: white; }
+.btn-x { background: #000000; color: white; }
 
-.card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.tag { font-size: 11px; font-weight: bold; color: var(--primary); background: var(--primary-light); padding: 4px 10px; border-radius: 15px; }
-.hot-badge { font-size: 11px; color: var(--hot-color); font-weight: bold; }
-
-.item-info h3 { margin: 0; font-size: 18px; }
-.item-info p { margin: 5px 0 0; font-size: 14px; color: var(--text-light); }
-
-.modal { display: none; position: fixed; z-index: 1000; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
-.modal-content {
-  background: var(--card); width: 90%; max-width: 400px; margin: 50px auto; padding: 25px;
-  border-radius: 25px; position: relative;
-}
-.close-btn { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 24px; color: var(--text-light); }
-
-.link-btn {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; padding: 14px; border-radius: 12px; font-weight: bold; text-decoration: none; margin-bottom: 10px; color: white;
-}
-.btn-site { background: var(--primary); }
-.btn-discord { background: var(--discord-color); }
-.btn-x { background: var(--x-color); }
-
-.fixed-footer {
-  position: fixed; bottom: 0; left: 0; width: 100%; background: white;
-  padding: 15px; border-top: 1px solid #e2e8f0; text-align: center;
-}
-.line-btn {
-  background: var(--line-color); color: white; text-decoration: none;
-  padding: 12px 30px; border-radius: 30px; font-weight: bold; display: inline-block;
-}
+.footer { position: fixed; bottom: 0; width: 100%; background: white; padding: 15px; border-top: 1px solid #eee; text-align: center; }
+.line-link { background: #06C755; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; }
 </style>
 </head>
 <body>
 
 <header>
   <h1>DAORU</h1>
+  <p style="font-size:12px; color:gray; margin:5px 0 0;">日本の注目DAO図鑑</p>
 </header>
 
 <div class="container" id="list"></div>
 
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <div id="detail"></div>
-  </div>
-</div>
-
-<div class="fixed-footer">
-  <a href="https://line.me/ti/p/O4cPoZHcUk" target="_blank" class="line-btn">掲載依頼はこちら（LINE）</a>
+<div class="footer">
+  <a href="https://line.me/ti/p/O4cPoZHcUk" target="_blank" class="line-link">掲載の相談はLINEまで</a>
 </div>
 
 <script>
-const items = [
-  { id: "ninja", name: "忍者 DAO", desc: "日本最大級のWeb3コミュニティ", hot: 1250, discord: "https://discord.com/invite/ninjadao", site: "", x: "" },
-  { id: "cafe", name: "クリプトカフェ BAR", desc: "恵比寿にあるリアルな拠点", hot: 420, discord: "", site: "https://cryptocafe.bar/", x: "" },
-  { id: "guild", name: "ギルドキュービー", desc: "ゲームで生きていくを形にする", hot: 890, discord: "https://discord.com/invite/guildqb", site: "https://guildqb.com/", x: "" },
-  { id: "okaeri", name: "オカエリハブ", desc: "旅と地方創生のサブスク宿", hot: 310, discord: "", site: "https://www.okaerihub.net/", x: "" },
-  { id: "jandao", name: "雀DAO", desc: "麻雀×Web3の新しい形", hot: 180, discord: "", site: "", x: "https://x.com/jandao_official" }
+// ここに全データを入れました。説明文も復活させています。
+const daos = [
+  { id: 1, name: "忍者 DAO", desc: "日本最大級のコミュニティ。毎日ゲーム大会や制作が行われています。", hot: 1250, discord: "https://discord.com/invite/ninjadao", site: "", x: "" },
+  { id: 2, name: "クリプトカフェ BAR", desc: "恵比寿にあるWeb3好きが集まるリアルな拠点。初心者歓迎！", hot: 420, discord: "", site: "https://cryptocafe.bar/", x: "" },
+  { id: 3, name: "ギルドキュービー", desc: "ゲーム制作や大会主催を行う、日本トップクラスのギルド。", hot: 890, discord: "https://discord.com/invite/guildqb", site: "https://guildqb.com/", x: "" },
+  { id: 4, name: "オカエリハブ", desc: "旅と地方創生を繋ぐ、サブスク宿のコミュニティ。", hot: 310, discord: "", site: "https://www.okaerihub.net/", x: "" },
+  { id: 5, name: "雀DAO", desc: "麻雀とWeb3を組み合わせた新しい趣味の形。", hot: 180, discord: "", site: "", x: "https://x.com/jandao_official" }
 ];
 
 function getHot(id, base) {
-  const s = localStorage.getItem('h_'+id);
+  const s = localStorage.getItem('h_' + id);
   return s ? parseInt(s) : base;
 }
 
-function render() {
-  const l = document.getElementById("list");
-  l.innerHTML = "";
-  items.forEach(i => {
-    l.innerHTML += `
-      <div class="item-card" onclick="openModal('${i.id}')">
+function up(id) {
+  const cur = getHot(id, 0);
+  const base = daos.find(d => d.id === id).hot;
+  localStorage.setItem('h_' + id, (cur === 0 ? base : cur) + 1);
+  draw();
+}
+
+function draw() {
+  const container = document.getElementById("list");
+  container.innerHTML = "";
+  
+  daos.forEach(d => {
+    let btns = "";
+    if(d.site) btns += `<a href="${d.site}" target="_blank" class="btn btn-site" onclick="up(${d.id})">🌐 公式サイト</a>`;
+    if(d.discord) btns += `<a href="${d.discord}" target="_blank" class="btn btn-discord" onclick="up(${d.id})">💬 Discordに参加</a>`;
+    if(d.x) btns += `<a href="${d.x}" target="_blank" class="btn btn-x" onclick="up(${d.id})">𝕏 公式X(旧Twitter)</a>`;
+
+    container.innerHTML += `
+      <div class="card">
         <div class="card-top">
-          <span class="tag">#DAO</span>
-          <span class="hot-badge">🔥 ${getHot(i.id, i.hot)}人が注目</span>
+          <span>#DAO</span>
+          <span class="hot-tag">🔥 ${getHot(d.id, d.hot)}人が注目</span>
         </div>
-        <div class="item-info">
-          <h3>${i.name}</h3>
-          <p>${i.desc}</p>
-        </div>
+        <div class="card-name">${d.name}</div>
+        <div class="card-desc">${d.desc}</div>
+        <div class="btn-group">${btns}</div>
       </div>
     `;
   });
 }
 
-function openModal(id) {
-  const i = items.find(item => item.id === id);
-  const cur = getHot(id, i.hot);
-  localStorage.setItem('h_'+id, cur + 1);
-  render();
-
-  let h = `<h2>${i.name}</h2><p style="margin-bottom:20px;">${i.desc}</p>`;
-  if(i.site) h += `<a href="${i.site}" target="_blank" class="link-btn btn-site">🌐 公式サイト</a>`;
-  if(i.discord) h += `<a href="${i.discord}" target="_blank" class="link-btn btn-discord">💬 Discordに参加</a>`;
-  if(i.x) h += `<a href="${i.x}" target="_blank" class="link-btn btn-x">𝕏 公式アカウント</a>`;
-  
-  document.getElementById("detail").innerHTML = h;
-  document.getElementById("modal").style.display = "block";
-}
-
-function closeModal() { document.getElementById("modal").style.display = "none"; }
-render();
+draw();
 </script>
 </body>
 </html>
